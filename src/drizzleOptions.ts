@@ -1,5 +1,6 @@
 import GustavoCoin from "./contracts/GustavoCoin.json"
 import SimpleStorage from "./contracts/SimpleStorage.json"
+import Jobs from "./contracts/Jobs.json"
 
 const drizzleOptions = {
   web3: {
@@ -9,7 +10,7 @@ const drizzleOptions = {
       url: "ws://127.0.0.1:8545",
     },
   },
-  contracts: [GustavoCoin, SimpleStorage],
+  contracts: [GustavoCoin, SimpleStorage, Jobs],
   events: [],
 }
 

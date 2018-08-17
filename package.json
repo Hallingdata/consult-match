@@ -26,7 +26,7 @@
     "app-serve-build": "./node_modules/.bin/serve -s build",
     "app-test": "react-scripts-ts test --env=jsdom",
     "eth-start": "npm run eth-start-xtrerm:genache && sleep 10s && npm run eth-deploy",
-    "eth-start:genache": "./node_modules/.bin/ganache-cli -d --gasLimit 7000000000000 --acctKeys ./ganache-accounts.json",
+    "eth-start:genache": "./node_modules/.bin/ganache-cli -d --gasLimit 7000000000000 --gasPrice 1 --acctKeys ./ganache-accounts.json",
     "eth-start-xtrerm:genache": "xterm -e './node_modules/.bin/ganache-cli -d --gasLimit 7000000000000 --acctKeys ./ganache-accounts.json' &",
     "eth-deploy": "./node_modules/.bin/truffle migrate --compile-all --reset",
     "eth-comp": "./node_modules/.bin/truffle compile ",

@@ -1,5 +1,5 @@
 import SwarmDemo from "../components/SwarmDemo"
-import { addHash, addSelectedContent } from "../actions/swarm"
+import { addHashToMyJobs } from "../actions/jobs"
 import { drizzleConnect } from "drizzle-react"
 import { publish, getContent } from "../integrations/swarm"
 
@@ -14,11 +14,10 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     publishToSwarm: async (data: any) => {
         const hash = await publish(data)
-        dispatch(addHash(hash))
+        dispatch(addHashToMyJobs(hash))
     },
     fetchFromSwarm: async (hash: string) => {
         const content = await getContent(hash)
-        dispatch(addSelectedContent(content))
     }
   }
 }
