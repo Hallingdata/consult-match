@@ -11,6 +11,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import purple from "@material-ui/core/colors/purple"
 import green from "@material-ui/core/colors/green"
 import CssBaseline from "@material-ui/core/CssBaseline"
+import JobList from "./containers/JobList"
 
 const theme = createMuiTheme({
   spacing: {
@@ -28,6 +29,7 @@ const App: SFC = () => (
       <CssBaseline />
       <LoadingContainer>
         <Layout>
+          <JobList />
           <PostJobForm />
         </Layout>
       </LoadingContainer>

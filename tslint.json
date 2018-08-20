@@ -61,7 +61,7 @@
             "check-whitespace"
         ],
         "quotemark": [true, "double", "jsx-double"],
-        "radix": true,
+        "radix": false,
         "semicolon": [true, "never"],
         "switch-default": true,
 

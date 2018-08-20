@@ -2,7 +2,7 @@ pragma solidity ^0.4.19;
 
 contract Jobs {
   string[] jobs;
-  uint numberOfJobs;
+  uint public numberOfJobs;
 
   function addJob(string hash) public {
     jobs.push(hash);
