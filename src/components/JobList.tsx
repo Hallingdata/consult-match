@@ -17,7 +17,7 @@ import {
 
 type Props = {
   jobs: { [hash: string]: any }
-  fetchJobs: (web3: any, contract: any) => void
+  fetchJobs: () => void
 }
 
 type AllProps = Props & { classes: StyleClassNames }
@@ -25,38 +25,58 @@ type AllProps = Props & { classes: StyleClassNames }
 type State = {}
 
 class JobList extends React.Component<AllProps, State> {
-  static contextTypes = {
-    drizzle: PropTypes.object,
-  }
-
   postJob: (data: any) => void
   classes: StyleClassNames
   contract: any
 
-  constructor(props: AllProps, { drizzle }: any) {
+  constructor(props: AllProps) {
     super(props)
-    props.fetchJobs(drizzle.web3, drizzle.contracts.Jobs)
+    props.fetchJobs()
+    this.classes = props.classes
   }
+  
 
   render() {
-    console.log(this.props.jobs)
     return (
-      <div>
+      <List>
         {R.isEmpty(this.props.jobs) ? (
-          <span>empty</span>
+          <ListItem>empty</ListItem>
         ) : (
-          R.map(
-            jobHash => <div key={jobHash}>{jobHash}</div>,
-            Object.keys(this.props.jobs)
-          )
+          R.map<string, any>(jobHash => {
+            const { title, location, description } = this.props.jobs[jobHash]
+            return (
+              <ListItem className={this.classes.listItem} button>
+                <Card key={jobHash} className={this.classes.card}>
+                  <CardContent>
+                    <Typography color="textSecondary">{location}</Typography>
+                    <Typography variant="headline" component="h2">
+                      {title}
+                    </Typography>
+                    <Typography component="p">{description}</Typography>
+                  </CardContent>
+                </Card>
+              </ListItem>
+            )
+          }, Object.keys(this.props.jobs))
         )}
-      </div>
+      </List>
     )
   }
 }
 
-type StyleClassNames = {}
+type StyleClassNames = {
+  card: string
+  listItem: string
+}
 
-const styles: StyleRulesCallback = theme => ({})
+const styles: StyleRulesCallback = theme => ({
+  card: {
+    width: "100%"
+  },
+  listItem: {
+    paddingTop: 3,
+    paddingBottom: 3
+  }
+})
 
-export default withStyles(styles)<Props>(JobList)
+export default withStyles(styles)<Props>(JobList as any)

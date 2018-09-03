@@ -12,7 +12,7 @@ import { StyleRulesCallback, withStyles, Grid } from "@material-ui/core"
 import { TextField, Button, Typography } from "@material-ui/core"
 
 type Props = {
-  postJob: (web3: any, contract: any) => (data: any) => void
+  postJob: () => (data: any) => void
 }
 
 type AllProps = Props & { classes: StyleClassNames }
@@ -25,10 +25,6 @@ type State = {
 
 class CreateJobForm extends React.Component<AllProps, State> {
 
-  static contextTypes = {
-    drizzle: PropTypes.object,
-  }
-
   postJob: (data: any) => void
   classes: StyleClassNames
   contract: any
@@ -37,7 +33,7 @@ class CreateJobForm extends React.Component<AllProps, State> {
     super(props)
     this.state = { title: "", description: "", location: "" }
     this.classes = props.classes
-    this.postJob = props.postJob(context.drizzle.web3, context.drizzle.contracts.Jobs)
+    this.postJob = props.postJob()
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -119,4 +115,4 @@ const styles: StyleRulesCallback = theme => ({
   location: {},
 })
 
-export default withStyles(styles)<Props>(CreateJobForm)
+export default withStyles(styles)<Props>(CreateJobForm as any)

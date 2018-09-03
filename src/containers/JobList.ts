@@ -1,6 +1,6 @@
 import JobList from "../components/JobList"
 import { fetchAllJobs } from "../actions/jobs"
-import { drizzleConnect } from "drizzle-react"
+import { connect } from "react-redux";
 
 const mapStateToProps = (state: any) => {
   return {
@@ -10,9 +10,10 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchJobs: (web3: any, contract: any) =>
-      dispatch(fetchAllJobs(web3, contract)),
+    fetchJobs: () => {
+      dispatch(fetchAllJobs())
+    }
   }
 }
 
-export default drizzleConnect(JobList, mapStateToProps, mapDispatchToProps)
+export default connect(mapStateToProps, mapDispatchToProps)(JobList)

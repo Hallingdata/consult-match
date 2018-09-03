@@ -1,6 +1,6 @@
-import { drizzleConnect } from "drizzle-react"
 import ReduxDemo from "../components/ReduxDemo"
 import { addData } from "../actions/data"
+import { connect } from "react-redux"
 
 const mapStateToProps = (state: any) => {
   return {
@@ -14,4 +14,7 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 }
 
-export default drizzleConnect(ReduxDemo, mapStateToProps, mapDispatchToProps)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ReduxDemo)

@@ -1,6 +1,6 @@
 import PostJobForm from "../components/PostJobForm"
 import { postJob } from "../actions/jobs"
-import { drizzleConnect } from "drizzle-react"
+import { connect } from "react-redux";
 
 const mapStateToProps = (state: any) => {
   return {}
@@ -8,8 +8,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    postJob: (web3: any, contract: any) => (job: any) => dispatch(postJob(web3, contract, job)),
+    // postJob: (web3: any, contract: any) => (job: any) => dispatch(postJob(web3, contract, job)),
   }
 }
 
-export default drizzleConnect(PostJobForm, mapStateToProps, mapDispatchToProps)
+export default connect(mapStateToProps, mapDispatchToProps)(PostJobForm)

@@ -1,28 +1,23 @@
-import { createStore, applyMiddleware, compose } from "redux"
+import { createStore, applyMiddleware, compose, Store } from "redux"
 import thunkMiddleware from "redux-thunk"
 import reducer from "./reducer"
+import { connectRouter, routerMiddleware } from 'connected-react-router'
+import { History } from "history"
 
-import { generateContractsInitialState } from "drizzle"
-import drizzleOptions from "./drizzleOptions"
-import createSagaMiddleware from "redux-saga"
-import rootSaga from "./rootSaga"
+export function configureStore(history: History, initialState?: any): Store<any> {
+  // Redux DevTools
+  const composeEnhancers =
+    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-// Redux DevTools
-const composeEnhancers =
-  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
-const initialState = {
-  contracts: generateContractsInitialState(drizzleOptions),
+  const store = createStore(
+    connectRouter(history)(reducer),
+    initialState,
+    composeEnhancers(
+      applyMiddleware(
+        routerMiddleware(history),
+        thunkMiddleware,
+      )
+    )
+  )
+  return store
 }
-
-const sagaMiddleware = createSagaMiddleware()
-
-const store = createStore(
-  reducer,
-  initialState,
-  composeEnhancers(applyMiddleware(thunkMiddleware, sagaMiddleware))
-)
-
-sagaMiddleware.run(rootSaga)
-
-export default store

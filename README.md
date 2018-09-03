@@ -25,4 +25,3 @@ $ npm app-start
 - Typescript
 - React
 - Redux
-- Drizzle
