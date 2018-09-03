@@ -1,6 +1,6 @@
-import { publish, getContent } from "../integrations/swarm"
+import * as Swarm from "../integrations/swarm"
 import * as R from "ramda"
-import { getHashesForAllJobs } from "../contracts/Jobs"
+import * as JobsContract from "../contracts/Jobs"
 
 export const ADD_JOB_HASH_TO_MY_JOBS = "ADD_JOB_HASH_TO_MY_JOBS"
 export const SET_SELECTED_JOB = "SET_SELECTED_JOB"
@@ -23,10 +23,10 @@ export const setSelectedJob = (hash: string, content: any) => ({
 })
 
 export const fetchAllJobs = () => async (dispatch: any) => {
-  const jobHashes = await getHashesForAllJobs()
+  const jobHashes = await JobsContract.getHashesForAllJobs()
 
   const jobContent = await Promise.all(
-    R.map(hash => getContent(hash), jobHashes)
+    R.map(hash => Swarm.getContent(hash), jobHashes)
   )
 
   const jobsMap = R.reduce(
@@ -39,13 +39,10 @@ export const fetchAllJobs = () => async (dispatch: any) => {
   dispatch(setJobs(jobsMap))
 }
 
-export const postJob = (web3: any, contract: any, jobData: any) => async (
+export const postJob = (jobData: any) => async (
   dispatch: any
 ) => {
-  const hash = await publish(jobData)
-  const responds = await contract.methods
-    .addJob(web3.utils.fromAscii(hash))
-    .send({ gas: 99999999 })
-  dispatch(addHashToMyJobs(hash))
+  const hash = await Swarm.publish(jobData)
+  await JobsContract.postJob(hash)
   dispatch(fetchAllJobs())
 }

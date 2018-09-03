@@ -1,6 +1,8 @@
 import Web3 = require('web3')
 
-const web3Instance = new Web3(new Web3.providers.WebsocketProvider("ws://127.0.0.1:8545"))
+var web3 = new Web3(Web3.givenProvider || "ws://localhost:9545");
 
-console.log("web3 version: " + web3Instance.version)
-export default web3Instance
+
+console.log("web3 version: " + web3.version)
+console.log("web3 currentProvider: " + web3.currentProvider)
+export default web3

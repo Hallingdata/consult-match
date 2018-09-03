@@ -45,7 +45,7 @@ class JobList extends React.Component<AllProps, State> {
           R.map<string, any>(jobHash => {
             const { title, location, description } = this.props.jobs[jobHash]
             return (
-              <ListItem className={this.classes.listItem} button>
+              <ListItem key={jobHash} className={this.classes.listItem} button>
                 <Card key={jobHash} className={this.classes.card}>
                   <CardContent>
                     <Typography color="textSecondary">{location}</Typography>

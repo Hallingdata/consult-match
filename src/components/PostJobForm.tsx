@@ -12,7 +12,7 @@ import { StyleRulesCallback, withStyles, Grid } from "@material-ui/core"
 import { TextField, Button, Typography } from "@material-ui/core"
 
 type Props = {
-  postJob: () => (data: any) => void
+  postJob: (jobData: any) => void
 }
 
 type AllProps = Props & { classes: StyleClassNames }
@@ -33,7 +33,7 @@ class CreateJobForm extends React.Component<AllProps, State> {
     super(props)
     this.state = { title: "", description: "", location: "" }
     this.classes = props.classes
-    this.postJob = props.postJob()
+    this.postJob = props.postJob
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
