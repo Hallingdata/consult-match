@@ -18,6 +18,7 @@ import {
 type Props = {
   jobs: { [hash: string]: any }
   fetchJobs: () => void
+  gotoJob: (hash: string) => () => void
 }
 
 type AllProps = Props & { classes: StyleClassNames }
@@ -45,7 +46,7 @@ class JobList extends React.Component<AllProps, State> {
           R.map<string, any>(jobHash => {
             const { title, location, description } = this.props.jobs[jobHash]
             return (
-              <ListItem key={jobHash} className={this.classes.listItem} button>
+              <ListItem key={jobHash} className={this.classes.listItem} button onClick={this.props.gotoJob(jobHash)}>
                 <Card key={jobHash} className={this.classes.card}>
                   <CardContent>
                     <Typography color="textSecondary">{location}</Typography>

@@ -3,7 +3,6 @@ import * as R from "ramda"
 import * as JobsContract from "../contracts/Jobs"
 
 export const ADD_JOB_HASH_TO_MY_JOBS = "ADD_JOB_HASH_TO_MY_JOBS"
-export const SET_SELECTED_JOB = "SET_SELECTED_JOB"
 export const SET_JOBS = "SET_JOBS"
 
 export const setJobs = (jobs: any) => ({
@@ -13,12 +12,6 @@ export const setJobs = (jobs: any) => ({
 
 export const addHashToMyJobs = (hash: string) => ({
   type: ADD_JOB_HASH_TO_MY_JOBS,
-  hash,
-})
-
-export const setSelectedJob = (hash: string, content: any) => ({
-  type: SET_SELECTED_JOB,
-  content,
   hash,
 })
 

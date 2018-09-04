@@ -24,7 +24,6 @@ type State = {
 }
 
 class CreateJobForm extends React.Component<AllProps, State> {
-
   postJob: (data: any) => void
   classes: StyleClassNames
   contract: any
@@ -51,8 +50,12 @@ class CreateJobForm extends React.Component<AllProps, State> {
   render() {
     return (
       <>
-        <Typography variant="headline" gutterBottom>
-          Post a job
+        <Typography
+          variant="headline"
+          className={this.classes.headline}
+          gutterBottom
+        >
+          Legg ut et nytt oppdrag
         </Typography>
         <form onSubmit={this.handleSubmit}>
           <Grid container spacing={16}>
@@ -104,12 +107,16 @@ class CreateJobForm extends React.Component<AllProps, State> {
 }
 
 type StyleClassNames = {
+  headline: string
   title: string
   description: string
   location: string
 }
 
 const styles: StyleRulesCallback = theme => ({
+  headline: {
+    marginTop: 20,
+  },
   title: {},
   description: {},
   location: {},

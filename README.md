@@ -10,10 +10,11 @@ $ truffle unbox hallingdata/dApp-starter
 $ npm install  
 ```
 
-## Run test blockchain (Genache) and deploy contracts
+## Run develop blockchain and deploy contracts
 ```
-$ npm run eth-start
+$ npm run eth-dev
 ```
+Then in the console deploy the contracts with the `deploy` keyword.
 
 ## Run web app
 ```

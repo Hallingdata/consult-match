@@ -1,11 +1,10 @@
-import JobList from "../components/JobList"
 import { fetchAllJobs } from "../actions/jobs"
 import { connect } from "react-redux"
-import { push } from "connected-react-router"
+import Startup from "../components/Startup"
 
-const mapStateToProps = (state: any) => {
+function mapStateToProps(state: any) {
   return {
-    jobs: state.job.jobs,
+    ready: state.job.initialLoaded,
   }
 }
 
@@ -14,13 +13,10 @@ const mapDispatchToProps = (dispatch: any) => {
     fetchJobs: () => {
       dispatch(fetchAllJobs())
     },
-    gotoJob: (hash: string) => () => {
-      dispatch(push(`/oppdrag/${hash}`))
-    },
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(JobList)
+)(Startup)

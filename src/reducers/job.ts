@@ -1,13 +1,12 @@
 import {
   ADD_JOB_HASH_TO_MY_JOBS,
-  SET_SELECTED_JOB,
   SET_JOBS,
 } from "../actions/jobs"
 
 const initialState = {
   myJobHashes: [],
-  selectedJobHash: "",
   jobs: {},
+  initialLoaded: false
 }
 
 export const jobReducer = (state = initialState, action: any) => {
@@ -16,13 +15,10 @@ export const jobReducer = (state = initialState, action: any) => {
       return Object.assign({}, state, {
         myJobHashes: state.myJobHashes.concat(action.hash),
       })
-    case SET_SELECTED_JOB:
-      return Object.assign({}, state, {
-        selectedJobHash: action.hash,
-      })
     case SET_JOBS:
       return Object.assign({}, state, {
         jobs: action.jobs,
+        initialLoaded: true
       })
     default:
       return state
