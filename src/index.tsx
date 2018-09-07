@@ -19,9 +19,6 @@ import theme from "./theme"
 const history = createBrowserHistory()
 const store = configureStore(history)
 
-console.log("history: " + history)
-console.log("store: " + store)
-
 /*
 import Web3 from 'web3';
 
