@@ -21,4 +21,4 @@ yarn-debug.log*
 yarn-error.log*
 
 ganache-accounts.json
-/src/contracts
+/src/contracts/interfaces
