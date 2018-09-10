@@ -26,7 +26,7 @@ export const fetchAllConsultants = () => async (dispatch: any) => {
   dispatch(setConsultants(consultantMap))
 }
 
-export const addConsultant = (consultant: Consultant) => async (
+export const registerConsultant = (consultant: Consultant) => async (
   dispatch: any
 ) => {
   const hash = await Swarm.publish(consultant)

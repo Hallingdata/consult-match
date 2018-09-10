@@ -27,14 +27,14 @@ const TopBar: SFC<AllProps> = ({ classes, title }) => (
           {title}
         </Typography>
       </Link>
-      <Link to="/oppdrag" className={classes.link}>
-        <Button color="inherit">Finn oppdrag</Button>
+      <Link to="/job" className={classes.link}>
+        <Button color="inherit">Find Job</Button>
       </Link>
-      <Link to="/konsulenter" className={classes.link}>
-        <Button color="inherit">Finn konsulent</Button>
+      <Link to="/consultant" className={classes.link}>
+        <Button color="inherit">Find Consultant</Button>
       </Link>
-      <Link to="/nytt-oppdrag" className={classes.link}>
-        <Button color="inherit">Legg ut oppddrag</Button>
+      <Link to="/new-job" className={classes.link}>
+        <Button color="inherit">Post Job</Button>
       </Link>
     </Toolbar>
   </AppBar>

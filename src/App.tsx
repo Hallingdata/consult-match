@@ -8,15 +8,21 @@ import JobList from "./containers/JobList"
 import Home from "./components/Home"
 import Job from "./containers/Job"
 import Startup from "./containers/Startup"
+import ConsultantList from "./containers/ConsultantList";
+import ConsultantsProfile from "./containers/ConsultantsProfile";
+import RegisterConsultant from "./containers/RegisterConsultant";
 
 const App: SFC = () => (
   <Layout>
     <Startup>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/nytt-oppdrag" component={PostJobForm} />
-        <Route path="/oppdrag/:hash" component={Job} />
-        <Route path="/oppdrag" component={JobList} />
+        <Route path="/new-job" component={PostJobForm} />
+        <Route path="/job/:hash" component={Job} />
+        <Route path="/job" component={JobList} />
+        <Route path="/consultant/:hash" component={ConsultantsProfile} />
+        <Route path="/consultant" component={ConsultantList} />
+        <Route path="/new-consultant" component={RegisterConsultant} />
       </Switch>
     </Startup>
   </Layout>

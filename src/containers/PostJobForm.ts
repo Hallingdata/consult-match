@@ -8,7 +8,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-     postJob: (job: any) => dispatch(postJob(job)),
+     postJob: (job: Job) => dispatch(postJob(job)),
   }
 }
 

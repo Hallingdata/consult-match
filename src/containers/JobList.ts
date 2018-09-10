@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch: any) => {
     fetchJobs: () => {
       dispatch(fetchAllJobs())
     },
-    gotoJob: (hash: string) => () => {
+    clickJob: (hash: string) => () => {
       dispatch(push(`/oppdrag/${hash}`))
     },
   }

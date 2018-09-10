@@ -16,22 +16,22 @@ import {
 } from "@material-ui/core"
 
 type Props = {
-  jobs: { [hash: string]: Job }
-  fetchJobs: () => void
-  clickJob: (hash: string) => () => void
+  consultants: { [hash: string]: Consultant }
+  fetchConsultants: () => void
+  clickConsultant: (hash: string) => () => void
 }
 
 type AllProps = Props & { classes: StyleClassNames }
 
 type State = {}
 
-class JobList extends React.Component<AllProps, State> {
+class ConsultantList extends React.Component<AllProps, State> {
   classes: StyleClassNames
   contract: any
 
   constructor(props: AllProps) {
     super(props)
-    props.fetchJobs()
+    props.fetchConsultants()
     this.classes = props.classes
   }
   
@@ -39,25 +39,25 @@ class JobList extends React.Component<AllProps, State> {
   render() {
     return (
       <List>
-        {R.isEmpty(this.props.jobs) ? (
+        {R.isEmpty(this.props.consultants) ? (
           <ListItem>empty</ListItem>
         ) : (
-          R.map<string, any>(jobHash => {
-            const { title, location, description } = this.props.jobs[jobHash]
+          R.map<string, any>(consultantHash => {
+            const { name, company, description } = this.props.consultants[consultantHash]
             return (
-              <ListItem key={jobHash} className={this.classes.listItem} button onClick={this.props.clickJob(jobHash)}>
-                <Card key={jobHash} className={this.classes.card}>
+              <ListItem key={consultantHash} className={this.classes.listItem} button onClick={this.props.clickConsultant(consultantHash)}>
+                <Card key={consultantHash} className={this.classes.card}>
                   <CardContent>
-                    <Typography color="textSecondary">{location}</Typography>
+                    <Typography color="textSecondary">{company}</Typography>
                     <Typography variant="headline" component="h2">
-                      {title}
+                      {name}
                     </Typography>
                     <Typography component="p">{description}</Typography>
                   </CardContent>
                 </Card>
               </ListItem>
             )
-          }, Object.keys(this.props.jobs))
+          }, Object.keys(this.props.consultants))
         )}
       </List>
     )
@@ -79,4 +79,4 @@ const styles: StyleRulesCallback = theme => ({
   }
 })
 
-export default withStyles(styles)<Props>(JobList)
+export default withStyles(styles)<Props>(ConsultantList)
