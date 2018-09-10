@@ -1,21 +1,15 @@
 import {
-  ADD_JOB_HASH_TO_MY_JOBS,
-  SET_JOBS,
+  SET_JOBS_ARRAY,
 } from "../actions/jobs"
 
 const initialState = {
-  myJobHashes: [],
   jobs: {},
   initialLoaded: false
 }
 
 export const jobReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case ADD_JOB_HASH_TO_MY_JOBS:
-      return Object.assign({}, state, {
-        myJobHashes: state.myJobHashes.concat(action.hash),
-      })
-    case SET_JOBS:
+    case SET_JOBS_ARRAY:
       return Object.assign({}, state, {
         jobs: action.jobs,
         initialLoaded: true

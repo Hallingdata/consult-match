@@ -2,6 +2,7 @@ const GustavoCoinCrowdsale = artifacts.require("./GustavoCoinCrowdsale.sol")
 const GustavoCoin = artifacts.require("./GustavoCoin.sol")
 const SimpleStorage = artifacts.require("./SimpleStorage")
 const Jobs = artifacts.require("./Jobs")
+const Consultants = artifacts.require("./Consultants")
 
 module.exports = function(deployer, network, accounts) {
   const openingTime = web3.eth.getBlock("latest").timestamp + 2 // two secs in the future
@@ -18,6 +19,9 @@ module.exports = function(deployer, network, accounts) {
     })
     .then(() => {
       return deployer.deploy(Jobs)
+    })
+    .then(() => {
+      return deployer.deploy(Consultants)
     })
     .then(() => {
       return deployer.deploy(

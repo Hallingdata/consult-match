@@ -9,7 +9,7 @@ let contract: {
   getConsultant: (index: number) => any
 }
 
-const getInstance = async () => {
+const getContractInstance = async () => {
   const defaultAccount = (await web3.eth.getAccounts())[0]
 
   if (contract == null) {
@@ -25,8 +25,8 @@ const getInstance = async () => {
 }
 
 export const getHashesForAllConsultants = async () => {
-  const contract = await getInstance()
-
+  const contract = await getContractInstance()
+  console.log("done with that")
   const numberOfConsultants = parseInt(await contract.numberOfConsultants())
 
   console.log("Number of consultants in the consultants contract: " + numberOfConsultants)
@@ -45,7 +45,7 @@ export const getHashesForAllConsultants = async () => {
 }
 
 export const addConsultant = async (consultantHash: string) => {
-  const contract = await getInstance()
+  const contract = await getContractInstance()
 
   const responds = await contract.addConsultant(web3.utils.fromAscii(consultantHash))
   //.send({ gas: 99999999 })

@@ -2,17 +2,11 @@ import * as Swarm from "../integrations/swarm"
 import * as R from "ramda"
 import * as JobsContract from "../contracts/Jobs"
 
-export const ADD_JOB_HASH_TO_MY_JOBS = "ADD_JOB_HASH_TO_MY_JOBS"
-export const SET_JOBS = "SET_JOBS"
+export const SET_JOBS_ARRAY = "SET_JOBS_ARRAY"
 
 export const setJobs = (jobs: any) => ({
-  type: SET_JOBS,
+  type: SET_JOBS_ARRAY,
   jobs,
-})
-
-export const addHashToMyJobs = (hash: string) => ({
-  type: ADD_JOB_HASH_TO_MY_JOBS,
-  hash,
 })
 
 export const fetchAllJobs = () => async (dispatch: any) => {
@@ -32,10 +26,10 @@ export const fetchAllJobs = () => async (dispatch: any) => {
   dispatch(setJobs(jobsMap))
 }
 
-export const postJob = (jobData: any) => async (
+export const postJob = (job: Job) => async (
   dispatch: any
 ) => {
-  const hash = await Swarm.publish(jobData)
+  const hash = await Swarm.publish(job)
   await JobsContract.postJob(hash)
   dispatch(fetchAllJobs())
 }

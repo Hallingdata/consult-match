@@ -9,7 +9,7 @@ let contract: {
   getJob: (index: number) => any
 }
 
-const getInstance = async () => {
+const getContractInstance = async () => {
   const defaultAccount = (await web3.eth.getAccounts())[0]
 
   if (contract == null) {
@@ -25,7 +25,7 @@ const getInstance = async () => {
 }
 
 export const getHashesForAllJobs = async () => {
-  const contract = await getInstance()
+  const contract = await getContractInstance()
 
   const numberOfJobs = parseInt(await contract.numberOfJobs())
 
@@ -45,7 +45,7 @@ export const getHashesForAllJobs = async () => {
 }
 
 export const postJob = async (jobHash: string) => {
-  const contract = await getInstance()
+  const contract = await getContractInstance()
 
   console.log("methods: " + R.keys(contract))
 
