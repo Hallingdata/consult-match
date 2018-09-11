@@ -7,7 +7,7 @@ const Home: React.SFC<Props & { classes: StyleClassNames }> = ({ classes }) => {
   return (
     <>
       <Typography variant="display3" className={classes.header}>
-        Åpen markedsplass for konsulenter
+        Open marketplace for consultants
       </Typography>
     </>
   )

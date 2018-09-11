@@ -8,7 +8,7 @@ type AllProps = Props & { classes: StyleClassNames }
 
 const Layout: SFC<AllProps> = ({ classes, children }) => (
   <div className={classes.root}>
-    <TopBar title="Konsulent" />
+    <TopBar title="Consult Match" />
     <main className={classes.content}>{children}</main>
   </div>
 )
