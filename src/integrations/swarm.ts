@@ -7,4 +7,6 @@ export const publish = (content: any) =>
   }).then(_ => _.text())
 
 export const getContent = async (hash: string) =>
-  fetch(gateway + hash).then(_ => _.json())
+  fetch(gateway + hash)
+    .then(_ => _.json())
+    .catch(reason => ({ error: "Consultant data from Swarm not available for this consultant" }))

@@ -34,7 +34,6 @@ class ConsultantList extends React.Component<AllProps, State> {
     props.fetchConsultants()
     this.classes = props.classes
   }
-  
 
   render() {
     return (
@@ -43,20 +42,50 @@ class ConsultantList extends React.Component<AllProps, State> {
           <ListItem>empty</ListItem>
         ) : (
           R.map<string, any>(consultantHash => {
-            const { name, company, description } = this.props.consultants[consultantHash]
-            return (
-              <ListItem key={consultantHash} className={this.classes.listItem} button onClick={this.props.clickConsultant(consultantHash)}>
-                <Card key={consultantHash} className={this.classes.card}>
-                  <CardContent>
-                    <Typography color="textSecondary">{company}</Typography>
-                    <Typography variant="headline" component="h2">
-                      {name}
-                    </Typography>
-                    <Typography component="p">{description}</Typography>
-                  </CardContent>
-                </Card>
-              </ListItem>
-            )
+            if (R.has("error", this.props.consultants[consultantHash])) {
+              return (
+                <ListItem
+                  key={consultantHash}
+                  className={this.classes.listItem}
+                >
+                  <Card key={consultantHash} className={this.classes.card}>
+                    <CardContent>
+                      <Typography variant="caption">
+                        Hash: {consultantHash}
+                      </Typography>
+                      <Typography component="p">
+                        {R.path(
+                          ["error"],
+                          this.props.consultants[consultantHash]
+                        )}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </ListItem>
+              )
+            } else {
+              const { name, company, description } = this.props.consultants[
+                consultantHash
+              ]
+              return (
+                <ListItem
+                  key={consultantHash}
+                  className={this.classes.listItem}
+                  button
+                  onClick={this.props.clickConsultant(consultantHash)}
+                >
+                  <Card key={consultantHash} className={this.classes.card}>
+                    <CardContent>
+                      <Typography color="textSecondary">{company}</Typography>
+                      <Typography variant="headline" component="h2">
+                        {name}
+                      </Typography>
+                      <Typography component="p">{description}</Typography>
+                    </CardContent>
+                  </Card>
+                </ListItem>
+              )
+            }
           }, Object.keys(this.props.consultants))
         )}
       </List>
@@ -71,12 +100,12 @@ type StyleClassNames = {
 
 const styles: StyleRulesCallback = theme => ({
   card: {
-    width: "100%"
+    width: "100%",
   },
   listItem: {
     paddingTop: 3,
-    paddingBottom: 3
-  }
+    paddingBottom: 3,
+  },
 })
 
 export default withStyles(styles)<Props>(ConsultantList)

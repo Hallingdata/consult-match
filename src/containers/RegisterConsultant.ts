@@ -3,7 +3,9 @@ import { registerConsultant  } from "../actions/consultants";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state: any) => {
-  return {}
+  return {
+    waitingForRegistration: state.consultant.waitingForRegistration
+  }
 }
 
 const mapDispatchToProps = (dispatch: any) => {

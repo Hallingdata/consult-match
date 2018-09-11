@@ -7,9 +7,20 @@ const theme = createMuiTheme({
     unit: 20,
   },
   palette: {
-    primary: purple,
-    secondary: green,
+    primary: {
+      main: "#00BCD4",
+      contrastText: "#fafafa",
+    },
+    secondary: {
+      main: "#FFEB3B",
+      contrastText: "#1a1a1a",
+    },
   },
 })
 
 export default theme
+
+
+/**
+ * 42a5f5
+ */
