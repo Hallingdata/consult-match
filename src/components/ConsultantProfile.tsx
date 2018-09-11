@@ -1,5 +1,11 @@
 import * as React from "react"
-import { StyleRulesCallback, withStyles, Typography } from "@material-ui/core"
+import * as R from "ramda"
+import {
+  StyleRulesCallback,
+  withStyles,
+  Typography,
+  Chip,
+} from "@material-ui/core"
 
 type Props = {
   consultant: Consultant
@@ -9,12 +15,18 @@ const ConsultantProfile: React.SFC<Props & { classes: StyleClassNames }> = ({
   consultant,
   classes,
 }) => {
+  const { name, company, skills, description } = consultant
   return (
     <>
-      <Typography variant="headline">{consultant.name}</Typography>
-      <Typography variant="subheading">{consultant.company}</Typography>
-      <Typography variant="caption">{consultant.skills}</Typography>
-      <Typography>{consultant.description}</Typography>
+      <Typography variant="headline">{name}</Typography>
+      <Typography variant="subheading">{company}</Typography>
+      {R.map(
+        skill => (
+          <Chip key={`skill-${skill}`} label={skill} />
+        ),
+        skills
+      )}
+      <Typography>{description}</Typography>
     </>
   )
 }

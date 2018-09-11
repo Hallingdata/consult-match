@@ -1,6 +1,7 @@
 import * as React from "react"
+import * as R from "ramda"
 import PropTypes from "prop-types"
-import { StyleRulesCallback, withStyles, Grid } from "@material-ui/core"
+import { Chip, StyleRulesCallback, withStyles, Grid } from "@material-ui/core"
 import { TextField, Button, Typography } from "@material-ui/core"
 
 type Props = {
@@ -13,19 +14,45 @@ type State = {
   name: string
   company: string
   description: string
+  newSkill: string
   skills: string[]
 }
 
 class RegisterConsultant extends React.Component<AllProps, State> {
   constructor(props: AllProps, context: any) {
     super(props)
-    this.state = { name: "", description: "", company: "", skills: [] }
+    this.state = {
+      name: "",
+      description: "",
+      company: "",
+      newSkill: "",
+      skills: [],
+    }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange = (valueName: string) => (event: any) => {
     this.setState({ [valueName]: event.target.value } as any)
+  }
+
+  handleNewSkill = (event: any) => {
+    if (
+      event.key === "Enter" &&
+      !R.contains(this.state.newSkill, this.state.skills)
+    ) {
+      this.setState({
+        skills: R.append(this.state.newSkill, this.state.skills),
+        newSkill: "",
+      })
+    }
+  }
+
+  handleDelete = (skill: string) => (event: any) => {
+    console.log(skill)
+    this.setState({
+      skills: R.without([skill], this.state.skills),
+    })
   }
 
   handleSubmit(event: any) {
@@ -42,9 +69,9 @@ class RegisterConsultant extends React.Component<AllProps, State> {
           className={classes.headline}
           gutterBottom
         >
-          Legg ut et nytt oppdrag
+          Register a new consultant profile.
         </Typography>
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <Grid container spacing={16}>
             <Grid item xs={6}>
               <TextField
@@ -81,8 +108,31 @@ class RegisterConsultant extends React.Component<AllProps, State> {
                 fullWidth
               />
             </Grid>
+            <Grid item xs={12}>
+              {R.map(
+                skill => (
+                  <Chip
+                    key={`skill-${skill}`}
+                    label={skill}
+                    onDelete={this.handleDelete(skill)}
+                  />
+                ),
+                this.state.skills
+              )}
+              <TextField
+                className={classes.skill}
+                id="skill"
+                label="Skill"
+                value={this.state.newSkill}
+                onChange={this.handleChange("newSkill")}
+                onKeyPress={this.handleNewSkill}
+                margin="normal"
+                helperText="Press ENTER to add a skill"
+                fullWidth
+              />
+            </Grid>
             <Grid item>
-              <Button variant="contained" type="submit" value="Submit">
+              <Button variant="contained" onClick={this.handleSubmit}>
                 Register
               </Button>
             </Grid>
@@ -98,6 +148,7 @@ type StyleClassNames = {
   title: string
   description: string
   company: string
+  skill: string
 }
 
 const styles: StyleRulesCallback = theme => ({
@@ -107,6 +158,7 @@ const styles: StyleRulesCallback = theme => ({
   title: {},
   description: {},
   location: {},
+  skill: {},
 })
 
 export default withStyles(styles)<Props>(RegisterConsultant as any)
