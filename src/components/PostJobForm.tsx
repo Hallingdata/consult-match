@@ -1,18 +1,13 @@
-/* 
-    A job has:
-    * title
-    * description
-    * place
-    * (cost to apply)
-*/
-
 import * as React from "react"
-import PropTypes from "prop-types"
 import { StyleRulesCallback, withStyles, Grid } from "@material-ui/core"
 import { TextField, Button, Typography } from "@material-ui/core"
+import ButtonWithLoading from "./ButtonWithLoading"
+import Lottie from "react-lottie"
+import * as animationData from "../animations/checked_done_.json"
 
 type Props = {
-  postJob: (jobData: any) => void
+  postJob: (job: Job) => void
+  waitingForJobPosting: boolean
 }
 
 type AllProps = Props & { classes: StyleClassNames }
@@ -21,18 +16,20 @@ type State = {
   title: string
   description: string
   location: string
+  submitButtonClicked: boolean
 }
 
 class CreateJobForm extends React.Component<AllProps, State> {
-  postJob: (data: any) => void
-  classes: StyleClassNames
   contract: any
 
   constructor(props: AllProps, context: any) {
     super(props)
-    this.state = { title: "", description: "", location: "" }
-    this.classes = props.classes
-    this.postJob = props.postJob
+    this.state = {
+      title: "",
+      description: "",
+      location: "",
+      submitButtonClicked: false,
+    }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -43,47 +40,65 @@ class CreateJobForm extends React.Component<AllProps, State> {
 
   handleSubmit(event: any) {
     event.preventDefault()
-    this.postJob(this.state)
-    // alert("A job form was submitted: " + JSON.stringify(this.state))
+    this.props.postJob(this.state)
+    if (!this.state.submitButtonClicked) {
+      this.setState({
+        submitButtonClicked: true,
+      })
+    }
   }
 
   render() {
+    const defaultLottieOptions = {
+      loop: false,
+      autoplay: true,
+      animationData: animationData,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice",
+      },
+    }
+    const { classes } = this.props
     return (
       <>
+        {!this.state.submitButtonClicked ||
+        this.props.waitingForJobPosting ? (
+          <>
         <Typography
           variant="headline"
-          className={this.classes.headline}
+          className={classes.headline}
           gutterBottom
         >
-          Legg ut et nytt oppdrag
+          Post a Job
         </Typography>
         <form onSubmit={this.handleSubmit}>
           <Grid container spacing={16}>
             <Grid item xs={6}>
               <TextField
-                className={this.classes.title}
+                className={classes.title}
                 id="title"
                 label="Title"
                 value={this.state.title}
                 onChange={this.handleChange("title")}
                 margin="normal"
                 fullWidth
+                required
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
-                className={this.classes.location}
+                className={classes.location}
                 id="location"
                 label="Location"
                 value={this.state.location}
                 onChange={this.handleChange("location")}
                 margin="normal"
                 fullWidth
+                required
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                className={this.classes.description}
+                className={classes.description}
                 id="description"
                 label="Description"
                 multiline
@@ -92,15 +107,32 @@ class CreateJobForm extends React.Component<AllProps, State> {
                 margin="normal"
                 rows={5}
                 fullWidth
+                required
               />
             </Grid>
             <Grid item>
-              <Button variant="contained" type="submit" value="Submit">
-                Submit job
-              </Button>
+              <ButtonWithLoading
+                color="secondary"
+                variant="contained"
+                loading={this.state.submitButtonClicked}
+                type="submit"
+                value="Submit"
+              >
+                Post Job
+              </ButtonWithLoading>
             </Grid>
           </Grid>
         </form>
+      </>
+        ) : (
+          <>
+            <Lottie options={defaultLottieOptions} height={400} width={400} />
+            <Typography align="center">
+              It might take up to 5 minutes before the data is available through
+              Swarm
+            </Typography>
+          </>
+        )}
       </>
     )
   }

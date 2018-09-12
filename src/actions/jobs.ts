@@ -3,6 +3,8 @@ import * as R from "ramda"
 import * as JobsContract from "../contracts/Jobs"
 
 export const SET_JOBS_ARRAY = "SET_JOBS_ARRAY"
+export const JOB_POSTING_STARTED = "JOB_POSTING_STARTED"
+export const JOB_POSTING_COMPLETE = "JOB_POSTING_COMPLETE"
 
 export const setJobs = (jobs: any) => ({
   type: SET_JOBS_ARRAY,
@@ -29,7 +31,9 @@ export const fetchAllJobs = () => async (dispatch: any) => {
 export const postJob = (job: Job) => async (
   dispatch: any
 ) => {
+  dispatch({type: JOB_POSTING_STARTED})
   const hash = await Swarm.publish(job)
   await JobsContract.postJob(hash)
   dispatch(fetchAllJobs())
+  dispatch({type: JOB_POSTING_COMPLETE})
 }

@@ -1,7 +1,7 @@
 import * as R from "ramda"
 import {
   SET_CONSULTANTS_ARRAY,
-  START_CONSULTANT_REGISTRATION,
+  CONSULTANT_REGISTRATION_START,
   CONSULTANT_REGISTRATION_COMPLETE,
 } from "../actions/consultants"
 
@@ -18,7 +18,7 @@ export const consultantReducer = (state = initialState, action: any) => {
         consultants: action.consultants,
         initialLoaded: true,
       })
-    case START_CONSULTANT_REGISTRATION:
+    case CONSULTANT_REGISTRATION_START:
       return R.merge(state, { waitingForRegistration: true })
     case CONSULTANT_REGISTRATION_COMPLETE:
       return R.merge(state, { waitingForRegistration: false })

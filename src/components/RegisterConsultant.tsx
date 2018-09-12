@@ -1,8 +1,6 @@
 import * as React from "react"
 import * as R from "ramda"
-import PropTypes from "prop-types"
 import Lottie from "react-lottie"
-import green from "@material-ui/core/colors/green"
 import * as animationData from "../animations/checked_done_.json"
 import { Chip, StyleRulesCallback, withStyles, Grid } from "@material-ui/core"
 import {
@@ -11,6 +9,7 @@ import {
   Typography,
   CircularProgress,
 } from "@material-ui/core"
+import ButtonWithLoading from "./ButtonWithLoading"
 
 type Props = {
   registerConsultant: (jobData: any) => void
@@ -167,23 +166,15 @@ class RegisterConsultant extends React.Component<AllProps, State> {
                   />
                 </Grid>
                 <Grid item>
-                  <div className={classes.wrapper}>
-                    <Button
-                      color="secondary"
-                      variant="contained"
-                      disabled={this.state.submitButtonClicked}
-                      type="submit"
-                      value="Submit"
-                    >
-                      Register
-                    </Button>
-                    {this.state.submitButtonClicked && (
-                      <CircularProgress
-                        size={24}
-                        className={classes.buttonProgress}
-                      />
-                    )}
-                  </div>
+                  <ButtonWithLoading
+                    color="secondary"
+                    variant="contained"
+                    loading={this.state.submitButtonClicked}
+                    type="submit"
+                    value="Submit"
+                  >
+                    Register
+                  </ButtonWithLoading>
                 </Grid>
               </Grid>
             </form>
@@ -208,9 +199,6 @@ type StyleClassNames = {
   description: string
   company: string
   skill: string
-  buttonProgress: string
-  wrapper: string
-  buttonSuccess: string
 }
 
 const styles: StyleRulesCallback = theme => ({
@@ -221,23 +209,6 @@ const styles: StyleRulesCallback = theme => ({
   description: {},
   location: {},
   skill: {},
-  buttonProgress: {
-    color: green[500],
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    marginTop: -12,
-    marginLeft: -12,
-  },
-  wrapper: {
-    position: "relative",
-  },
-  buttonSuccess: {
-    backgroundColor: green[500],
-    "&:hover": {
-      backgroundColor: green[700],
-    },
-  },
 })
 
 export default withStyles(styles)<Props>(RegisterConsultant as any)

@@ -3,7 +3,7 @@ import * as R from "ramda"
 import * as ConsultantsContract from "../contracts/Consultants"
 
 export const SET_CONSULTANTS_ARRAY = "SET_CONSULTANTS_ARRAY"
-export const START_CONSULTANT_REGISTRATION = "START_CONSULTANT_REGISTRATION"
+export const CONSULTANT_REGISTRATION_START= "CONSULTANT_REGISTRATION_START"
 export const CONSULTANT_REGISTRATION_COMPLETE = "CONSULTANT_REGISTRATION_COMPLETE"
 
 export const setConsultants = (consultants: any) => ({
@@ -31,7 +31,7 @@ export const fetchAllConsultants = () => async (dispatch: any) => {
 export const registerConsultant = (consultant: Consultant) => async (
   dispatch: any
 ) => {
-  dispatch({type: START_CONSULTANT_REGISTRATION})
+  dispatch({type: CONSULTANT_REGISTRATION_START})
   const hash = await Swarm.publish(consultant)
   await ConsultantsContract.addConsultant(hash)
   dispatch({type: CONSULTANT_REGISTRATION_COMPLETE})
