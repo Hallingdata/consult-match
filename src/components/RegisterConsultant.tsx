@@ -10,9 +10,10 @@ import {
   CircularProgress,
 } from "@material-ui/core"
 import ButtonWithLoading from "./ButtonWithLoading"
+import FileUploadSwarm from "./FileUploadSwarm"
 
 type Props = {
-  registerConsultant: (jobData: any) => void
+  registerConsultant: (consultant: Consultant) => void
   waitingForRegistration: boolean
 }
 
@@ -24,6 +25,7 @@ type State = {
   description: string
   newSkill: string
   skills: string[]
+  imageHash: string
   submitButtonClicked: boolean
 }
 
@@ -35,6 +37,7 @@ class RegisterConsultant extends React.Component<AllProps, State> {
       description: "",
       company: "",
       newSkill: "",
+      imageHash: "",
       skills: [],
       submitButtonClicked: false,
     }
@@ -46,7 +49,11 @@ class RegisterConsultant extends React.Component<AllProps, State> {
     this.setState({ [valueName]: event.target.value } as any)
   }
 
-  handleNewSkill = (event: any) => {
+  handleImageUploaded = (hash: string) => {
+    this.setState({ imageHash: hash } as any)
+  }
+
+  skillHandleNew = (event: any) => {
     if (event.key === "Enter") {
       const skill = R.trim(this.state.newSkill)
       event.preventDefault()
@@ -55,7 +62,6 @@ class RegisterConsultant extends React.Component<AllProps, State> {
         !R.empty(skill) &&
         !R.contains(skill, this.state.skills)
       ) {
-        console.log("skill: " + skill)
         this.setState({
           skills: R.append(skill, this.state.skills),
           newSkill: "",
@@ -64,15 +70,17 @@ class RegisterConsultant extends React.Component<AllProps, State> {
     }
   }
 
-  handleDelete = (skill: string) => (event: any) => {
+  skillHandleDelete = (skill: string) => (event: any) => {
     this.setState({
       skills: R.without([skill], this.state.skills),
     })
   }
 
+  consultantFromState = (): Consultant => R.pick<Consultant>(["name", "company", "description", "skills", "imageHash"], this.state) as Consultant
+
   handleSubmit(event: any) {
     event.preventDefault()
-    this.props.registerConsultant(this.state)
+    this.props.registerConsultant(this.consultantFromState())
     if (!this.state.submitButtonClicked) {
       this.setState({
         submitButtonClicked: true,
@@ -148,7 +156,7 @@ class RegisterConsultant extends React.Component<AllProps, State> {
                       <Chip
                         key={`skill-${skill}`}
                         label={skill}
-                        onDelete={this.handleDelete(skill)}
+                        onDelete={this.skillHandleDelete(skill)}
                       />
                     ),
                     this.state.skills
@@ -159,11 +167,17 @@ class RegisterConsultant extends React.Component<AllProps, State> {
                     label="Skill"
                     value={this.state.newSkill}
                     onChange={this.handleChange("newSkill")}
-                    onKeyPress={this.handleNewSkill}
+                    onKeyPress={this.skillHandleNew}
                     margin="normal"
                     helperText="Press ENTER to add a skill"
                     fullWidth
                   />
+                </Grid>
+                <Grid item>
+                  <FileUploadSwarm
+                    onUploadComplete={this.handleImageUploaded}
+                    onUploadFailed={res => console.log("error: " + res)}
+                  /> 
                 </Grid>
                 <Grid item>
                   <ButtonWithLoading

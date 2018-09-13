@@ -1,6 +1,7 @@
 import ConsultantProfile from "../components/ConsultantProfile"
 import { fetchAllConsultants } from "../actions/consultants"
 import { connect } from "react-redux"
+import {getLink} from "../integrations/swarm"
 
 const mapStateToProps = (state: any, { match }: any) => {
   console.log("This consultants hash:  " + match.params.hash)
@@ -10,7 +11,9 @@ const mapStateToProps = (state: any, { match }: any) => {
 }
 
 const mapDispatchToProps = (dispatch: any) => {
-  return {}
+  return {
+    getImageLink: (imageHash: string | undefined) => imageHash != null ? getLink(imageHash): ""
+  }
 }
 
 export default connect(

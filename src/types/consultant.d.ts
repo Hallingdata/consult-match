@@ -3,4 +3,5 @@ type Consultant = {
   company: string
   description: string
   skills: string[]
+  imageHash?: string
 }

@@ -8,14 +8,16 @@ import {
 } from "@material-ui/core"
 
 type Props = {
-  consultant: Consultant
+  consultant: Consultant,
+  getImageLink: (hash: string | undefined) => string
 }
 
 const ConsultantProfile: React.SFC<Props & { classes: StyleClassNames }> = ({
   consultant,
+getImageLink,
   classes,
 }) => {
-  const { name, company, skills, description } = consultant
+  const { name, company, skills, description, imageHash } = consultant
   return (
     <>
       <Typography variant="headline">{name}</Typography>
@@ -27,18 +29,26 @@ const ConsultantProfile: React.SFC<Props & { classes: StyleClassNames }> = ({
         skills
       )}
       <Typography>{description}</Typography>
+      <img src={getImageLink(imageHash)} alt="Consultant picture" className={classes.profilePicture}/>
     </>
   )
 }
 
 type StyleClassNames = {
   className: string
+  profilePicture: string
 }
 
 const styles: StyleRulesCallback = theme => ({
   className: {
     width: 100,
   },
+  profilePicture: {
+    borderRadius: "50%",
+    objectFit: "cover",
+    width: 230,
+    height: 230,
+  }
 })
 
 export default withStyles(styles)<Props>(ConsultantProfile)

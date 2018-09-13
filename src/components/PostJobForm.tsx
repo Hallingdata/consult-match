@@ -1,4 +1,5 @@
 import * as React from "react"
+import * as R from "ramda"
 import { StyleRulesCallback, withStyles, Grid } from "@material-ui/core"
 import { TextField, Button, Typography } from "@material-ui/core"
 import ButtonWithLoading from "./ButtonWithLoading"
@@ -40,7 +41,10 @@ class CreateJobForm extends React.Component<AllProps, State> {
 
   handleSubmit(event: any) {
     event.preventDefault()
-    this.props.postJob(this.state)
+    this.props.postJob(R.pick(
+      ["title", "location", "description"],
+      this.state
+    ) as Job)
     if (!this.state.submitButtonClicked) {
       this.setState({
         submitButtonClicked: true,
@@ -60,70 +64,69 @@ class CreateJobForm extends React.Component<AllProps, State> {
     const { classes } = this.props
     return (
       <>
-        {!this.state.submitButtonClicked ||
-        this.props.waitingForJobPosting ? (
+        {!this.state.submitButtonClicked || this.props.waitingForJobPosting ? (
           <>
-        <Typography
-          variant="headline"
-          className={classes.headline}
-          gutterBottom
-        >
-          Post a Job
-        </Typography>
-        <form onSubmit={this.handleSubmit}>
-          <Grid container spacing={16}>
-            <Grid item xs={6}>
-              <TextField
-                className={classes.title}
-                id="title"
-                label="Title"
-                value={this.state.title}
-                onChange={this.handleChange("title")}
-                margin="normal"
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                className={classes.location}
-                id="location"
-                label="Location"
-                value={this.state.location}
-                onChange={this.handleChange("location")}
-                margin="normal"
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                className={classes.description}
-                id="description"
-                label="Description"
-                multiline
-                value={this.state.description}
-                onChange={this.handleChange("description")}
-                margin="normal"
-                rows={5}
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid item>
-              <ButtonWithLoading
-                color="secondary"
-                variant="contained"
-                loading={this.state.submitButtonClicked}
-                type="submit"
-                value="Submit"
-              >
-                Post Job
-              </ButtonWithLoading>
-            </Grid>
-          </Grid>
-        </form>
-      </>
+            <Typography
+              variant="headline"
+              className={classes.headline}
+              gutterBottom
+            >
+              Post a Job
+            </Typography>
+            <form onSubmit={this.handleSubmit}>
+              <Grid container spacing={16}>
+                <Grid item xs={6}>
+                  <TextField
+                    className={classes.title}
+                    id="title"
+                    label="Title"
+                    value={this.state.title}
+                    onChange={this.handleChange("title")}
+                    margin="normal"
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    className={classes.location}
+                    id="location"
+                    label="Location"
+                    value={this.state.location}
+                    onChange={this.handleChange("location")}
+                    margin="normal"
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    className={classes.description}
+                    id="description"
+                    label="Description"
+                    multiline
+                    value={this.state.description}
+                    onChange={this.handleChange("description")}
+                    margin="normal"
+                    rows={5}
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid item>
+                  <ButtonWithLoading
+                    color="secondary"
+                    variant="contained"
+                    loading={this.state.submitButtonClicked}
+                    type="submit"
+                    value="Submit"
+                  >
+                    Post Job
+                  </ButtonWithLoading>
+                </Grid>
+              </Grid>
+            </form>
+          </>
         ) : (
           <>
             <Lottie options={defaultLottieOptions} height={400} width={400} />

@@ -13,12 +13,14 @@ import {
   List,
   ListItem,
   ListItemText,
+  CardMedia,
 } from "@material-ui/core"
 
 type Props = {
   consultants: { [hash: string]: Consultant }
   fetchConsultants: () => void
   clickConsultant: (hash: string) => () => void
+  getImageLink: (hash: string | undefined) => string
 }
 
 type AllProps = Props & { classes: StyleClassNames }
@@ -64,7 +66,7 @@ class ConsultantList extends React.Component<AllProps, State> {
                 </ListItem>
               )
             } else {
-              const { name, company, description } = this.props.consultants[
+              const { name, company, description, imageHash } = this.props.consultants[
                 consultantHash
               ]
               return (
@@ -75,6 +77,11 @@ class ConsultantList extends React.Component<AllProps, State> {
                   onClick={this.props.clickConsultant(consultantHash)}
                 >
                   <Card key={consultantHash} className={this.classes.card}>
+                    <CardMedia
+                      className={this.classes.profilePicture}
+                      image={this.props.getImageLink(imageHash)}
+                      title="Live from space album cover"
+                    />
                     <CardContent>
                       <Typography color="textSecondary">{company}</Typography>
                       <Typography variant="headline" component="h2">
@@ -96,6 +103,7 @@ class ConsultantList extends React.Component<AllProps, State> {
 type StyleClassNames = {
   card: string
   listItem: string
+  profilePicture: string
 }
 
 const styles: StyleRulesCallback = theme => ({
@@ -105,6 +113,15 @@ const styles: StyleRulesCallback = theme => ({
   listItem: {
     paddingTop: 3,
     paddingBottom: 3,
+  },
+  profilePicture: {
+    borderRadius: "50%",
+    objectFit: "cover",
+    width: 100,
+    height: 100,
+    float: "left",
+    margin: 10,
+    marginRight: 30
   },
 })
 
