@@ -7,8 +7,8 @@ module.exports = {
   //contracts_build_directory: "./src/contracts", // this is not working do to a bug (https://github.com/trufflesuite/truffle/issues/862)
   networks: {
     development: {
-      host: "localhost",
-      port: 8545,
+      host: "home.asgeir.me",
+      port: 3034,
       network_id: "*", // Match any network id
     },
   },

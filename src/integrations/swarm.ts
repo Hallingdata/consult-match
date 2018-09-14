@@ -1,5 +1,5 @@
 import * as console from "console"
-const gateway = "http://79.160.131.47:3033/bzz:/"
+const gateway = "http://home.asgeir.me:3033/bzz:/"
 
 export const publish = (content: any) =>
   fetch(gateway, {
