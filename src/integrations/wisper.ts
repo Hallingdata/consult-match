@@ -1,17 +1,21 @@
 import web3 from "./web3"
 
 /**
- * getMyKeyPair() =>
- * 1. sign a message pre set message: (web3.eth.sign(dataToSign, address [, callback]))
- * 2. use the signature to create a shh.keyPair: web3.shh.generateSymKeyFromPassword(password, [callback])
+ * Generate a "chat" key.
+ *
+ * @returns keyId for a Whisper key.
  */
+export const generateKeyPar = async () => {
+  const defaultAccount = (await web3.eth.accounts)[0]
+  const signature = await web3.eth.sign(
+    defaultAccount,
+    JSON.stringify({ info: "create chat keys" })
+  )
+  const keyId: string = await web3.shh.generateSymKeyFromPassword(signature)
+  return keyId
+}
 
-/**
- * sendMessage: shh.post({ "from": myIdentity, "to": recipient, "topic": t, "payload": p });
- */
-
-export const getMyKeyPair = (password: string) =>
-  web3.shh.generateSymKeyFromPassword(password)
+export const getPublicKey = web3.shh.getPublicKey
 
 export const sendMessage = (
   from: string,
