@@ -10,6 +10,13 @@ module.exports = {
       host: "home.asgeir.me",
       port: 3034,
       network_id: "*", // Match any network id
+      gas: 500000
+    },
+    local: {
+      host: "localhost",
+      port: 8545,
+      network_id: "*", // Match any network id
+      gas: 500000
     },
   },
 }

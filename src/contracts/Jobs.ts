@@ -47,7 +47,6 @@ export const getHashesForAllJobs = async () => {
 export const postJob = async (jobHash: string) => {
   const contract = await getContractInstance()
 
-  console.log("methods: " + R.keys(contract))
 
   const responds = await contract.addJob(web3.utils.fromAscii(jobHash))
   //.send({ gas: 99999999 })
