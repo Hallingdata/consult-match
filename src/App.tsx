@@ -11,6 +11,8 @@ import Startup from "./containers/Startup"
 import ConsultantList from "./containers/ConsultantList";
 import ConsultantsProfile from "./containers/ConsultantsProfile";
 import RegisterConsultant from "./containers/RegisterConsultant";
+import Chat from "./containers/Chat";
+import Notifications from "./containers/Notifications";
 
 const App: SFC = () => (
   <Layout>
@@ -23,8 +25,10 @@ const App: SFC = () => (
         <Route path="/consultant/:hash" component={ConsultantsProfile} />
         <Route path="/consultant" component={ConsultantList} />
         <Route path="/new-consultant" component={RegisterConsultant} />
+        <Route path="/chat" component={Chat} />
       </Switch>
     </Startup>
+    <Notifications/>
   </Layout>
 )
 

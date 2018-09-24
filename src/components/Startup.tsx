@@ -1,7 +1,7 @@
 import * as React from "react"
 
 type Props = {
-  fetchJobs: () => void
+  fetchJobs: () => Promise<void>
   ready: boolean
 }
 

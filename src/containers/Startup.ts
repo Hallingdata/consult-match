@@ -11,10 +11,10 @@ function mapStateToProps(state: any) {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchJobs: () => {
-      dispatch(fetchAllJobs()),
-      dispatch(fetchAllConsultants())
-    },
+    fetchJobs: async () => {
+      await dispatch(fetchAllJobs()),
+      await dispatch(fetchAllConsultants())
+    }, 
   }
 }
 

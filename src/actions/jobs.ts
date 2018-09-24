@@ -1,5 +1,4 @@
 import * as Swarm from "../integrations/swarm"
-import * as Whisper from "../integrations/whisper"
 import * as R from "ramda"
 import * as JobsContract from "../contracts/Jobs"
 
@@ -31,13 +30,13 @@ export const fetchAllJobs = () => async (dispatch: any) => {
 
 export const postJob = (job: Job) => async (dispatch: any) => {
   dispatch({ type: JOB_POSTING_STARTED })
-  const whisperKeyId = await Whisper.generateKeyParFromEthAccountSignature()
+  // const whisperKeyId = await Whisper.generateKeyParFromEthAccountSignature()
 
-  const whisperEmployerPublicKey = await Whisper.getPublicKey(whisperKeyId)
-  console.log("whisperEmployerPublicKey: " + whisperEmployerPublicKey)
+  // const whisperEmployerPublicKey = await Whisper.getPublicKey(whisperKeyId)
+  // console.log("whisperEmployerPublicKey: " + whisperEmployerPublicKey)
   const hash = await Swarm.publish(
-    R.assoc("whisperEmployerPublicKey", whisperEmployerPublicKey, job)
-  )
+    R.assoc("whisperEmployerPublicKey", "filler", job)
+  ) 
   await JobsContract.postJob(hash)
   dispatch(fetchAllJobs())
   dispatch({ type: JOB_POSTING_COMPLETE })
