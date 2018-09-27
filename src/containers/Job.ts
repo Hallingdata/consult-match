@@ -7,19 +7,12 @@ const mapStateToProps = (state: any, { match }: any) => {
   console.log("This jobs hash:  " + match.params.hash)
   return {
     job: state.job.jobs[match.params.hash],
-    jobHash: match.params.jobHash,
+    jobHash: match.params.hash,
   }
 }
 
 const mapDispatchToProps = (dispatch: any, { match }: any) => {
-  return {
-    subscribe: (keyId: string) => {
-      Whisper.subscribe(
-        keyId,
-        Whisper.getWhisperTopicForJob(match.params.jobHash)
-      )
-    },
-  }
+  return {}
 }
 
 export default connect(

@@ -22,6 +22,7 @@ const Chat: React.SFC<Props & { classes: StyleClassNames }> = ({
   const messageRef = React.createRef()
 
   const handleEnter = (event: any) => {
+    console.log(`message: ${(messageRef as any).current}`)
     const message: string | undefined = R.compose(
       R.trim,
       R.path(["current", "value"])

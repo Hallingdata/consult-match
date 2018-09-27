@@ -3,6 +3,7 @@ import thunkMiddleware from "redux-thunk"
 import reducer from "./reducers"
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 import { History } from "history"
+import * as Whisper from "./integrations/whisper"
 
 export function configureStore(history: History, initialState?: any): Store<any> {
   // Redux DevTools
@@ -15,7 +16,7 @@ export function configureStore(history: History, initialState?: any): Store<any>
     composeEnhancers(
       applyMiddleware(
         routerMiddleware(history),
-        thunkMiddleware,
+          thunkMiddleware.withExtraArgument(Whisper.subscribe),
       )
     )
   )

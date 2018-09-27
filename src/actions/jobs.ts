@@ -33,7 +33,7 @@ export const fetchAllJobs = () => async (dispatch: any) => {
   dispatch(setJobs(jobsMap))
 }
 
-export const postJob = (job: Job) => async (dispatch: any, getState) => {
+export const postJob = (job: Job) => async (dispatch: any, getState: any) => {
   dispatch({ type: JOB_POSTING_STARTED })
   const whisperKeyId = await Whisper.generateKeyParFromEthAccountSignature()
   dispatch(setWhisperKeyId(whisperKeyId))

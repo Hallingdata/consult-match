@@ -7,28 +7,18 @@ import * as Whisper from "../integrations/whisper";
 type Props = {
   job: Job
   jobHash: string
-  subscribe: (keyId: any | null) => void
 }
 
-const JobView: React.SFC<Props & { classes: StyleClassNames }> = ({ job, jobHash, subscribe }) => {
+const JobView: React.SFC<Props & { classes: StyleClassNames }> = ({ job, jobHash }) => {
   const keyIdRef = React.createRef()
   const { title, description, location, whisperEmployerPublicKey } = job
-  const doSubscribe = () => {
-    subscribe((keyIdRef as any).current.value)
-  }
   return (
     <>
       <Typography variant="headline">{title}</Typography>
       <Typography variant="subheading">{location}</Typography>
       <Typography>{description}</Typography>
-      <TextField
-        id="keyId"
-        label="keyId"
-        inputRef={keyIdRef}
-        margin="normal"
-      />
-      <Button onClick={doSubscribe}>Subscribe</Button>
       <Typography variant="headline">Chat</Typography>
+      {jobHash}
       <Chat jobHash={jobHash} publicKey={whisperEmployerPublicKey}/>
     </>
   )

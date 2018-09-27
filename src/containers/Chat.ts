@@ -1,4 +1,5 @@
 import Chat from "../components/Chat"
+import { sendMessage } from "../actions/user"
 import { connect } from "react-redux"
 import * as Whisper from "../integrations/whisper"
 
@@ -16,9 +17,10 @@ const mapStateToProps = (state: any, { match }: Props) => {
 
 const mapDispatchToProps = (dispatch: any, ownProps: Props) => {
   return {
-    sendMessage: (message: string) =>
-      Whisper.sendMessage(ownProps.publicKey, ownProps.jobHash, message),
-  }
+      sendMessage: (message: string) => {
+          console.log("public key: " + ownProps.publicKey)
+      dispatch(sendMessage(message, ownProps.publicKey, ownProps.jobHash))
+      }}
 }
 
 export default connect<any, any, Props>(

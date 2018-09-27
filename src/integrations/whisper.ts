@@ -21,55 +21,33 @@ export const generateKeyParFromEthAccountSignature = async () => {
 // 00a1442c185262b9d6952bbe6e89d71d16e2562f9a29be4a6c94b2bbec51d705
 export const getPublicKey = web3.shh.getPublicKey
 
-export const subscribe = (privateKeyId: string, topic: string) => {
+export const subscribe = (
+  privateKeyId: string,
+  onMessage: (error: any, message: any, subscription: any) => void
+) => {
   web3.shh.subscribe(
     "messages",
     {
       privateKeyId: privateKeyId,
     },
-    function(error: any, message: any, subscription: any) {
-      const payload = R.compose(JSON.parse, web3.utils.hexToAscii)(message.payload)
-      console.log("GOT MESSAGE!!!!!: " + JSON.stringify(payload))
-    }
+    onMessage
   )
-  /*
-    web3.shh.subscribe(
-      "messages",
-      {
-        //privateKeyID:
-        //  "1d14896308b73e021eda5f039d11e4d77243345b87e1cd26ae64acc38d6f9d4c",
-        symKeyID:
-          "3c4bb3ccd657127f5659750d25f75b9b7d1c7e7e3e1d0fa190a840f02a8bd0c4",
-        topics: ["0x07678231"],
-      },
-      (error: any, res: any) => console.log("res: " + res + ", error: " + error)
-    )
-
-    web3.shh.subscribe(
-      "messages",
-      {
-        ttl: 1000,
-        minPow: 0.2,
-        topics: ["0x07678231"],
-      },
-      async (error: any, message: any) => {
-        console.log("message")
-      }
-    )
-    */
 }
 
 export const sendMessage = (
-  publicKey: string,
+  toPublicKey: string,
+  fromPublicKey: string,
   jobHash: string,
   message: string
 ) => {
   const payload = {
     message,
     jobHash,
+    sender: fromPublicKey,
   }
+    console.log(payload)
   return web3.shh.post({
-    pubKey: publicKey,
+    pubKey: toPublicKey,
     ttl: 10000,
     powTarget: 0.2,
     powTime: 10,
