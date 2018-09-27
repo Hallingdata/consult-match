@@ -37,9 +37,9 @@ const Chat: React.SFC<Props & { classes: StyleClassNames }> = ({
     <>
       <List>
         {R.map(
-          ({ from, content }) => (
+          ({ sender, message }) => (
             <ListItem>
-              <ListItemText primary={content} secondary={from} />
+              <ListItemText primary={message} secondary={sender} />
             </ListItem>
           ),
           messages

@@ -3,10 +3,16 @@ import * as R from "ramda"
 import * as Whisper from "../integrations/whisper"
 
 export const SET_WHISPER_KEY_ID = "SET_WHISPER_KEY_ID"
+export const ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE"
 
 export const setWhisperKeyId = (keyId: string) => ({
   type: SET_WHISPER_KEY_ID,
   keyId,
+})
+
+export const addMessage = (message: ChatMessage) => ({
+  type: ADD_NEW_MESSAGE,
+  message,
 })
 
 export const initWhisper = () => async (
@@ -31,18 +37,14 @@ export const initWhisper = () => async (
       await dispatch(setWhisperKeyId(whisperKeyId))
     }
   }
-  console.log(
-    "whisperKeyId: " +
-      whisperKeyId +
-      ", publicKey: " +
-      (await Whisper.getPublicKey(whisperKeyId))
-  )
-  const handler = (error: any, message: any, subscription: any) => {
-    const payload = R.compose(
+  const handler = (error: any, rawMessage: any, subscription: any) => {
+      const message: ChatMessage = R.compose(
       JSON.parse,
       Web3.utils.hexToAscii
-    )(message.payload)
-    console.log("GOT MESSAGE!!!!!: " + JSON.stringify(payload))
+    )(rawMessage.payload)
+      dispatch(addMessage(message))
+
+    console.log("GOT MESSAGE!!!!!: " + JSON.stringify(message))
   }
   whisperSubscribe(whisperKeyId, handler)
 }
