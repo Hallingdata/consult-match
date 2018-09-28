@@ -3,16 +3,16 @@ import { SFC } from "react"
 import { Route, Switch } from "react-router"
 
 import Layout from "./components/Layout"
-import PostJobForm from "./containers/PostJobForm"
-import JobList from "./containers/JobList"
+import PostJobForm from "./components/PostJobForm/postJobForm"
+import JobList from "./components/JobList/jobList"
 import Home from "./components/Home"
-import Job from "./containers/Job"
-import Startup from "./containers/Startup"
-import ConsultantList from "./containers/ConsultantList";
-import ConsultantsProfile from "./containers/ConsultantsProfile";
-import RegisterConsultant from "./containers/RegisterConsultant";
-import Chat from "./containers/Chat";
-import Notifications from "./containers/Notifications";
+import Job from "./components/Job/job"
+import Startup from "./components/Startup"
+import ConsultantList from "./components/ConsultantList/consultantList"
+import ConsultantsProfile from "./components/ConsultantProfile/consultantsProfile.container"
+import RegisterConsultant from "./components/RegisterConsultant/registerConsultant"
+import Chat from "./components/Chat/chat"
+import Notifications from "./components/Notifications"
 
 const App: SFC = () => (
   <Layout>
@@ -28,7 +28,7 @@ const App: SFC = () => (
         <Route path="/chat" component={Chat} />
       </Switch>
     </Startup>
-    <Notifications/>
+    <Notifications />
   </Layout>
 )
 

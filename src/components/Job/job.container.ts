@@ -1,7 +1,7 @@
-import Job from "../components/Job"
-import { fetchAllJobs } from "../actions/jobs"
+import Job from "./job"
+import { fetchAllJobs } from "../../actions/jobs"
 import { connect } from "react-redux"
-import * as Whisper from "../integrations/whisper"
+import * as Whisper from "../../integrations/whisper"
 
 const mapStateToProps = (state: any, { match }: any) => {
   console.log("This jobs hash:  " + match.params.hash)

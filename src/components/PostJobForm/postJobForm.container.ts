@@ -1,5 +1,5 @@
-import PostJobForm from "../components/PostJobForm"
-import { postJob } from "../actions/jobs"
+import PostJobForm from "./postJobForm"
+import { postJob } from "../../actions/jobs"
 import { connect } from "react-redux"
 
 const mapStateToProps = (state: any) => {

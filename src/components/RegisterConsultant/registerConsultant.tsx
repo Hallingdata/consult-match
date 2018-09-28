@@ -1,7 +1,7 @@
 import * as React from "react"
 import * as R from "ramda"
 import Lottie from "react-lottie"
-import * as animationData from "../animations/checked_done_.json"
+import * as animationData from "../../animations/checked_done_.json"
 import { Chip, StyleRulesCallback, withStyles, Grid } from "@material-ui/core"
 import {
   TextField,
@@ -9,8 +9,8 @@ import {
   Typography,
   CircularProgress,
 } from "@material-ui/core"
-import ButtonWithLoading from "./ButtonWithLoading"
-import FileUploadSwarm from "./FileUploadSwarm"
+import ButtonWithLoading from "../UI/ButtonWithLoading"
+import FileUploadSwarm from "../UI/FileUploadSwarm"
 
 type Props = {
   registerConsultant: (consultant: Consultant) => void
@@ -76,7 +76,11 @@ class RegisterConsultant extends React.Component<AllProps, State> {
     })
   }
 
-  consultantFromState = (): Consultant => R.pick<Consultant>(["name", "company", "description", "skills", "imageHash"], this.state) as Consultant
+  consultantFromState = (): Consultant =>
+    R.pick<Consultant>(
+      ["name", "company", "description", "skills", "imageHash"],
+      this.state
+    ) as Consultant
 
   handleSubmit(event: any) {
     event.preventDefault()
@@ -177,7 +181,7 @@ class RegisterConsultant extends React.Component<AllProps, State> {
                   <FileUploadSwarm
                     onUploadComplete={this.handleImageUploaded}
                     onUploadFailed={res => console.log("error: " + res)}
-                  /> 
+                  />
                 </Grid>
                 <Grid item>
                   <ButtonWithLoading

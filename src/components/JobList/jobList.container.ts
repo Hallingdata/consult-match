@@ -1,5 +1,5 @@
-import JobList from "../components/JobList"
-import { fetchAllJobs } from "../actions/jobs"
+import JobList from "./jobList"
+import { fetchAllJobs } from "../../actions/jobs"
 import { connect } from "react-redux"
 import { push } from "connected-react-router"
 

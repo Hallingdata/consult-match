@@ -1,8 +1,8 @@
 import * as React from "react"
 import { StyleRulesCallback, withStyles, TextField} from "@material-ui/core"
 import { Typography, Button } from "@material-ui/core"
-import Chat from "../containers/Chat"
-import * as Whisper from "../integrations/whisper";
+import Chat from "../Chat"
+import * as Whisper from "../../integrations/whisper";
 
 type Props = {
   job: Job

@@ -2,9 +2,9 @@ import * as React from "react"
 import * as R from "ramda"
 import { StyleRulesCallback, withStyles, Grid } from "@material-ui/core"
 import { TextField, Button, Typography } from "@material-ui/core"
-import ButtonWithLoading from "./ButtonWithLoading"
+import ButtonWithLoading from "../UI/ButtonWithLoading"
 import Lottie from "react-lottie"
-import * as animationData from "../animations/checked_done_.json"
+import * as animationData from "../../animations/checked_done_.json"
 
 type Props = {
   postJob: (job: Job) => void

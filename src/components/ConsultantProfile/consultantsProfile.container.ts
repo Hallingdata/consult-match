@@ -1,7 +1,7 @@
-import ConsultantProfile from "../components/ConsultantProfile"
-import { fetchAllConsultants } from "../actions/consultants"
+import ConsultantProfile from "./consultantProfile"
+import { fetchAllConsultants } from "../../actions/consultants"
 import { connect } from "react-redux"
-import {getLink} from "../integrations/swarm"
+import {getLink} from "../../integrations/swarm"
 
 const mapStateToProps = (state: any, { match }: any) => {
   console.log("This consultants hash:  " + match.params.hash)

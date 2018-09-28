@@ -1,6 +1,6 @@
-import Notifications from "../components/Notifications"
+import Notifications from "./notifications"
 import { connect } from "react-redux"
-import { closeNotification } from "../actions/notifications";
+import { closeNotification } from "../../actions/notifications";
 
 const mapStateToProps = (state: any, { match }: any) => {
   return {

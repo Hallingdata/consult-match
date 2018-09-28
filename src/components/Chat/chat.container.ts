@@ -1,7 +1,7 @@
-import Chat from "../components/Chat"
-import { sendMessage } from "../actions/whisper"
+import Chat from "./chat"
+import { sendMessage } from "../../actions/whisper"
 import { connect } from "react-redux"
-import * as Whisper from "../integrations/whisper"
+import * as Whisper from "../../integrations/whisper"
 
 type Props = {
   publicKey: string

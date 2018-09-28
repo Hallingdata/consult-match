@@ -1,6 +1,6 @@
 import * as React from "react"
 import { StyleRulesCallback, withStyles } from "@material-ui/core"
-import { publishFile } from "../integrations/swarm"
+import { publishFile } from "../../integrations/swarm"
 
 type Props = {
   onUploadComplete: (hash: string) => void

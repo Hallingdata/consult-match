@@ -1,5 +1,5 @@
-import RegisterConsultant from "../components/RegisterConsultant";
-import { registerConsultant  } from "../actions/consultants";
+import RegisterConsultant from "./registerConsultant";
+import { registerConsultant  } from "../../actions/consultants";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state: any) => {

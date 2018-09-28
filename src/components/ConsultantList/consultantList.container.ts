@@ -1,8 +1,8 @@
-import ConsultantList from "../components/ConsultantList"
-import { fetchAllConsultants } from "../actions/consultants"
+import ConsultantList from "./consultantList"
+import { fetchAllConsultants } from "../../actions/consultants"
 import { connect } from "react-redux"
 import { push } from "connected-react-router"
-import {getLink} from "../integrations/swarm"
+import {getLink} from "../../integrations/swarm"
 
 const mapStateToProps = (state: any) => {
   return {
