@@ -10,7 +10,6 @@ type Props = {
 }
 
 const JobView: React.SFC<Props & { classes: StyleClassNames }> = ({ job, jobHash }) => {
-  const keyIdRef = React.createRef()
   const { title, description, location, whisperEmployerPublicKey } = job
   return (
     <>

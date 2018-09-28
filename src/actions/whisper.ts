@@ -15,7 +15,7 @@ export const addMessage = (message: ChatMessage) => ({
   message,
 })
 
-export const initWhisper = () => async (
+export const init = () => async (
   dispatch: any,
   getState: any,
   whisperSubscribe: (
@@ -23,8 +23,8 @@ export const initWhisper = () => async (
     onMessage: (error: any, message: any, subscription: any) => void
   ) => void
 ) => {
-  const { user } = getState()
-  let whisperKeyId = user.whisperKeyId
+  const { whisper } = getState()
+  let whisperKeyId = whisper.whisperKeyId
   if (R.empty(whisperKeyId)) {
     whisperKeyId = await Whisper.generateKeyParFromEthAccountSignature()
     await dispatch(setWhisperKeyId(whisperKeyId))
@@ -54,8 +54,8 @@ export const sendMessage = (
   toPublicKey: string,
   jobHash: string
 ) => async (dispatch: any, getState: any) => {
-  const { user } = getState()
-  let whisperKeyId = user.whisperKeyId
+  const { whisper } = getState()
+  let whisperKeyId = whisper.whisperKeyId
   Whisper.sendMessage(
     toPublicKey,
     await Whisper.getPublicKey(whisperKeyId),

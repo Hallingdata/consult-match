@@ -19,18 +19,16 @@ const Chat: React.SFC<Props & { classes: StyleClassNames }> = ({
   sendMessage,
   classes,
 }) => {
-  const messageRef = React.createRef()
+  let message = ""
 
   const handleEnter = (event: any) => {
-    console.log(`message: ${(messageRef as any).current}`)
-    const message: string | undefined = R.compose(
-      R.trim,
-      R.path(["current", "value"])
-    )(messageRef)
-
     if (!R.isNil(message) && !R.isEmpty(message)) {
       sendMessage(message)
     }
+  }
+
+  const onChange = (event: any) => {
+    message = event.target.value
   }
 
   return (
@@ -39,7 +37,11 @@ const Chat: React.SFC<Props & { classes: StyleClassNames }> = ({
         {R.map(
           ({ sender, message }) => (
             <ListItem>
-              <ListItemText primary={message} secondary={sender} />
+              <ListItemText
+                key={message}
+                primary={message}
+                secondary={sender}
+              />
             </ListItem>
           ),
           messages
@@ -49,8 +51,8 @@ const Chat: React.SFC<Props & { classes: StyleClassNames }> = ({
         id="message"
         label="Message"
         className={classes.message}
-        inputRef={messageRef}
         margin="normal"
+        onChange={onChange}
         onKeyPress={R.when(event => event.key === "Enter", handleEnter)}
       />
     </>

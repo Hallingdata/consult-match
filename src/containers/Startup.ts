@@ -1,6 +1,6 @@
 import { fetchAllJobs } from "../actions/jobs"
 import { fetchAllConsultants } from "../actions/consultants"
-import { initWhisper } from "../actions/user"
+import * as Whisper from "../actions/whisper"
 import { connect } from "react-redux"
 import Startup from "../components/Startup"
 
@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch: any) => {
     fetchJobs: async () => {
       await dispatch(fetchAllJobs()),
         await dispatch(fetchAllConsultants())
-      await dispatch(initWhisper())
+      await dispatch(Whisper.init())
     }, 
   }
 }

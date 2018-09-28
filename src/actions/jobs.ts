@@ -5,7 +5,7 @@ import * as Swarm from "../integrations/swarm"
 import * as Whisper from "../integrations/whisper"
 import * as R from "ramda"
 import * as JobsContract from "../contracts/Jobs"
-import { setWhisperKeyId } from "./user";
+import { setWhisperKeyId } from "./whisper";
 
 export const SET_JOBS_ARRAY = "SET_JOBS_ARRAY"
 export const JOB_POSTING_STARTED = "JOB_POSTING_STARTED"
