@@ -1,6 +1,6 @@
-import { fetchAllJobs } from "../../actions/jobs"
-import { fetchAllConsultants } from "../../actions/consultants"
-import * as Whisper from "../../actions/whisper"
+import { fetchAllJobs } from "../../state/actions/jobs"
+import { fetchAllConsultants } from "../../state/actions/consultants"
+import * as Whisper from "../../state/actions/whisper"
 import { connect } from "react-redux"
 import Startup from "./startup"
 
@@ -13,10 +13,9 @@ function mapStateToProps(state: any) {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     fetchJobs: async () => {
-      await dispatch(fetchAllJobs()),
-        await dispatch(fetchAllConsultants())
+      await dispatch(fetchAllJobs()), await dispatch(fetchAllConsultants())
       await dispatch(Whisper.init())
-    }, 
+    },
   }
 }
 

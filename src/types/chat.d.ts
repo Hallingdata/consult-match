@@ -1,5 +1,5 @@
 type ChatMessage = {
   sender: string
-    message: string
+  content: string
   jobHash: string
 }

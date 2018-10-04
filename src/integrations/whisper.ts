@@ -40,12 +40,13 @@ export const sendMessage = (
   jobHash: string,
   message: string
 ) => {
+  console.log("sending message")
   const payload = {
     message,
     jobHash,
     sender: fromPublicKey,
   }
-    console.log(payload)
+  console.log(payload)
   return web3.shh.post({
     pubKey: toPublicKey,
     ttl: 10000,

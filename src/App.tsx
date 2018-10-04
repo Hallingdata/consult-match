@@ -3,15 +3,15 @@ import { SFC } from "react"
 import { Route, Switch } from "react-router"
 
 import Layout from "./components/Layout"
-import PostJobForm from "./components/PostJobForm/postJobForm"
-import JobList from "./components/JobList/jobList"
+import JobForm from "./components/Job/Form"
+import JobList from "./components/Job/List"
 import Home from "./components/Home"
-import Job from "./components/Job/job"
+import JobView from "./components/Job/View"
 import Startup from "./components/Startup"
-import ConsultantList from "./components/ConsultantList/consultantList"
-import ConsultantsProfile from "./components/ConsultantProfile/consultantsProfile.container"
-import RegisterConsultant from "./components/RegisterConsultant/registerConsultant"
-import Chat from "./components/Chat/chat"
+import ConsultantList from "./components/Consultant/List"
+import ConsultantsProfile from "./components/Consultant/Profile"
+import ConsultantRegister from "./components/Consultant/Register"
+import ChatView from "./components/Chat/View"
 import Notifications from "./components/Notifications"
 
 const App: SFC = () => (
@@ -19,13 +19,14 @@ const App: SFC = () => (
     <Startup>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/new-job" component={PostJobForm} />
-        <Route path="/job/:hash" component={Job} />
+        <Route path="/new-job" component={JobForm} />
+        <Route path="/job/:hash" component={JobView} />
         <Route path="/job" component={JobList} />
         <Route path="/consultant/:hash" component={ConsultantsProfile} />
         <Route path="/consultant" component={ConsultantList} />
-        <Route path="/new-consultant" component={RegisterConsultant} />
-        <Route path="/chat" component={Chat} />
+        <Route path="/new-consultant" component={ConsultantRegister} />
+        <Route path="/chat/:jobHash/:senderPublicKey" component={ChatView} />
+        <Route path="/chat" component={ChatView} />
       </Switch>
     </Startup>
     <Notifications />
