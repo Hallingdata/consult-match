@@ -16,6 +16,7 @@ type AllProps = Props & { classes: StyleClassNames }
 type State = {
   title: string
   description: string
+  contact: string
   location: string
   submitButtonClicked: boolean
 }
@@ -29,6 +30,7 @@ class CreateJobForm extends React.Component<AllProps, State> {
       title: "",
       description: "",
       location: "",
+      contact: "",
       submitButtonClicked: false,
     }
     this.handleChange = this.handleChange.bind(this)
@@ -113,6 +115,20 @@ class CreateJobForm extends React.Component<AllProps, State> {
                     required
                   />
                 </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    className={classes.contact}
+                    id="contact"
+                    label="Contact"
+                    multiline
+                    value={this.state.contact}
+                    onChange={this.handleChange("contact")}
+                    margin="normal"
+                    rows={3}
+                    fullWidth
+                    required
+                  />
+                </Grid>
                 <Grid item>
                   <ButtonWithLoading
                     color="secondary"
@@ -146,6 +162,7 @@ type StyleClassNames = {
   title: string
   description: string
   location: string
+  contact: string
 }
 
 const styles: StyleRulesCallback = theme => ({
@@ -155,6 +172,7 @@ const styles: StyleRulesCallback = theme => ({
   title: {},
   description: {},
   location: {},
+  contact: {},
 })
 
 export default withStyles(styles)<Props>(CreateJobForm as any)

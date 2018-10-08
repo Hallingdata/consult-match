@@ -19,11 +19,7 @@ const TopBar: SFC<AllProps> = ({ classes, title }) => (
   <AppBar position="absolute" className={classes.appBar}>
     <Toolbar>
       <Link to="/" className={classes.logo}>
-        <Typography
-          variant="title"
-          color="inherit"
-          noWrap={true}
-        >
+        <Typography variant="title" color="inherit" noWrap={true}>
           {title}
         </Typography>
       </Link>
@@ -38,9 +34,6 @@ const TopBar: SFC<AllProps> = ({ classes, title }) => (
       </Link>
       <Link to="/new-consultant" className={classes.link}>
         <Button color="inherit">Register as Consultant</Button>
-      </Link>
-      <Link to="/chat" className={classes.link}>
-          <Button color="inherit">Chat</Button>
       </Link>
     </Toolbar>
   </AppBar>

@@ -11,7 +11,6 @@ import Startup from "./components/Startup"
 import ConsultantList from "./components/Consultant/List"
 import ConsultantsProfile from "./components/Consultant/Profile"
 import ConsultantRegister from "./components/Consultant/Register"
-import ChatView from "./components/Chat/View"
 import Notifications from "./components/Notifications"
 
 const App: SFC = () => (
@@ -25,8 +24,6 @@ const App: SFC = () => (
         <Route path="/consultant/:hash" component={ConsultantsProfile} />
         <Route path="/consultant" component={ConsultantList} />
         <Route path="/new-consultant" component={ConsultantRegister} />
-        <Route path="/chat/:jobHash/:senderPublicKey" component={ChatView} />
-        <Route path="/chat" component={ChatView} />
       </Switch>
     </Startup>
     <Notifications />
