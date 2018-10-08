@@ -13,10 +13,7 @@ const mapStateToProps = (state: any, { match }: any) => {
 }
 
 const mapDispatchToProps = (dispatch: any, { match }: any) => {
-  return {
-    openChat: (jobHash: string, whisperEmployerPublicKey: string) =>
-      dispatch(push(`/chat/${jobHash}/${whisperEmployerPublicKey}`)),
-  }
+  return {}
 }
 
 export default connect(

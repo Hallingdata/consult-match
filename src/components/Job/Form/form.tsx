@@ -16,7 +16,8 @@ type AllProps = Props & { classes: StyleClassNames }
 type State = {
   title: string
   description: string
-  contact: string
+  email: string
+  phone: string
   location: string
   submitButtonClicked: boolean
 }
@@ -30,7 +31,8 @@ class CreateJobForm extends React.Component<AllProps, State> {
       title: "",
       description: "",
       location: "",
-      contact: "",
+      email: "",
+      phone: "",
       submitButtonClicked: false,
     }
     this.handleChange = this.handleChange.bind(this)
@@ -44,7 +46,7 @@ class CreateJobForm extends React.Component<AllProps, State> {
   handleSubmit(event: any) {
     event.preventDefault()
     this.props.postJob(R.pick(
-      ["title", "location", "description"],
+      ["title", "location", "description", "email", "phone"],
       this.state
     ) as Job)
     if (!this.state.submitButtonClicked) {
@@ -117,16 +119,27 @@ class CreateJobForm extends React.Component<AllProps, State> {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    className={classes.contact}
-                    id="contact"
-                    label="Contact"
-                    multiline
-                    value={this.state.contact}
-                    onChange={this.handleChange("contact")}
+                    className={classes.email}
+                    id="email"
+                    label="Email"
+                    value={this.state.email}
+                    onChange={this.handleChange("email")}
                     margin="normal"
-                    rows={3}
                     fullWidth
                     required
+                    type="email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    className={classes.phone}
+                    id="phone"
+                    label="phone"
+                    value={this.state.phone}
+                    onChange={this.handleChange("phone")}
+                    margin="normal"
+                    fullWidth
+                    type="tel"
                   />
                 </Grid>
                 <Grid item>
@@ -162,7 +175,8 @@ type StyleClassNames = {
   title: string
   description: string
   location: string
-  contact: string
+  email: string
+  phone: string
 }
 
 const styles: StyleRulesCallback = theme => ({
@@ -172,7 +186,8 @@ const styles: StyleRulesCallback = theme => ({
   title: {},
   description: {},
   location: {},
-  contact: {},
+  email: {},
+  phone: {},
 })
 
 export default withStyles(styles)<Props>(CreateJobForm as any)
