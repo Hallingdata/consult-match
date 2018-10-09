@@ -1,23 +1,31 @@
-import * as React from "react"
-import * as R from "ramda"
 import {
-  StyleRulesCallback,
-  withStyles,
-  Typography,
   Chip,
+  StyleRulesCallback,
+  Typography,
+  withStyles,
 } from "@material-ui/core"
+import * as R from "ramda"
+import * as React from "react"
 
 type Props = {
-  consultant: Consultant,
+  consultant: Consultant
   getImageLink: (hash: string | undefined) => string
 }
 
 const ConsultantProfile: React.SFC<Props & { classes: StyleClassNames }> = ({
   consultant,
-getImageLink,
+  getImageLink,
   classes,
 }) => {
-  const { name, company, skills, description, imageHash } = consultant
+  const {
+    name,
+    company,
+    skills,
+    description,
+    imageHash,
+    email,
+    phone,
+  } = consultant
   return (
     <>
       <Typography variant="headline">{name}</Typography>
@@ -29,7 +37,13 @@ getImageLink,
         skills
       )}
       <Typography>{description}</Typography>
-      <img src={getImageLink(imageHash)} alt="Consultant picture" className={classes.profilePicture}/>
+      <img
+        src={getImageLink(imageHash)}
+        alt="Consultant picture"
+        className={classes.profilePicture}
+      />
+      <Typography>Email: {email}</Typography>
+      <Typography>Phone: {phone}</Typography>
     </>
   )
 }
@@ -48,7 +62,7 @@ const styles: StyleRulesCallback = theme => ({
     objectFit: "cover",
     width: 230,
     height: 230,
-  }
+  },
 })
 
 export default withStyles(styles)<Props>(ConsultantProfile)

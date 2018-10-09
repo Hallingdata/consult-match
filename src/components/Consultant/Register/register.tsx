@@ -23,6 +23,8 @@ type State = {
   name: string
   company: string
   description: string
+  email: string
+  phone: string
   newSkill: string
   skills: string[]
   imageHash: string
@@ -36,6 +38,8 @@ class RegisterConsultant extends React.Component<AllProps, State> {
       name: "",
       description: "",
       company: "",
+      email: "",
+      phone: "",
       newSkill: "",
       imageHash: "",
       skills: [],
@@ -78,7 +82,15 @@ class RegisterConsultant extends React.Component<AllProps, State> {
 
   consultantFromState = (): Consultant =>
     R.pick<Consultant>(
-      ["name", "company", "description", "skills", "imageHash"],
+      [
+        "name",
+        "company",
+        "description",
+        "skills",
+        "imageHash",
+        "email",
+        "phone",
+      ],
       this.state
     ) as Consultant
 
@@ -177,13 +189,39 @@ class RegisterConsultant extends React.Component<AllProps, State> {
                     fullWidth
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={6}>
+                  <TextField
+                    className={classes.email}
+                    id="email"
+                    label="Email"
+                    value={this.state.email}
+                    onChange={this.handleChange("email")}
+                    margin="normal"
+                    fullWidth
+                    required
+                    type="email"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    className={classes.phone}
+                    id="phone"
+                    label="phone"
+                    value={this.state.phone}
+                    onChange={this.handleChange("phone")}
+                    margin="normal"
+                    fullWidth
+                    type="tel"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <Typography variant="headline">Upload picture</Typography>
                   <FileUploadSwarm
                     onUploadComplete={this.handleImageUploaded}
                     onUploadFailed={res => console.log("error: " + res)}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={12}>
                   <ButtonWithLoading
                     color="secondary"
                     variant="contained"
@@ -215,6 +253,8 @@ type StyleClassNames = {
   headline: string
   title: string
   description: string
+  email: string
+  phone: string
   company: string
   skill: string
 }
@@ -225,6 +265,8 @@ const styles: StyleRulesCallback = theme => ({
   },
   title: {},
   description: {},
+  email: {},
+  phone: {},
   location: {},
   skill: {},
 })
