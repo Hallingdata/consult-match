@@ -19,13 +19,13 @@ export const generateKeyParFromEthAccountSignature = async () => {
   return keyId
 }
 // 00a1442c185262b9d6952bbe6e89d71d16e2562f9a29be4a6c94b2bbec51d705
-export const getPublicKey = web3.shh.getPublicKey
+export const getPublicKey = shh.getPublicKey
 
 export const subscribe = (
   privateKeyId: string,
   onMessage: (error: any, message: any, subscription: any) => void
 ) => {
-  web3.shh.subscribe(
+  shh.subscribe(
     "messages",
     {
       privateKeyId: privateKeyId,
@@ -47,7 +47,7 @@ export const sendMessage = (
     sender: fromPublicKey,
   }
   console.log(payload)
-  return web3.shh.post({
+  return shh.post({
     pubKey: toPublicKey,
     ttl: 10000,
     powTarget: 0.2,
