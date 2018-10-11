@@ -7,6 +7,7 @@ let contract: {
   numberOfJobs: () => string
   addJob: any
   getJob: (index: number) => any
+  markJobComplete: (index: number) => any
 }
 
 const getContractInstance = async () => {
@@ -31,25 +32,37 @@ export const getHashesForAllJobs = async () => {
 
   console.log("Number of jobs in the jobs contract: " + numberOfJobs)
 
-  const jobHashes = await Promise.all(
+  const jobHashes: any = await Promise.all(
     R.map(
       index =>
-        contract
-          .getJob(index)
-          .then((_: any) => web3.utils.toAscii(_)),
+        contract.getJob(index).then((_: any) => {
+          console.log(_)
+          return {
+            hash: web3.utils.toAscii(_[0]),
+            done: _[1],
+            owner: _[2],
+            jobIndex: index,
+          }
+        }),
       R.range(0, numberOfJobs)
     )
   )
 
-  return jobHashes
+  return jobHashes as Promise<{ hash: string; done: boolean; owner: string }[]>
 }
 
 export const postJob = async (jobHash: string) => {
   const contract = await getContractInstance()
 
-
   const responds = await contract.addJob(web3.utils.fromAscii(jobHash))
   //.send({ gas: 99999999 })
+  return responds
+}
 
+export const markeJobComplete = async (jobIndex: number) => {
+  const contract = await getContractInstance()
+
+  const responds = await contract.markJobComplete(jobIndex)
+  //.send({ gas: 99999999 })
   return responds
 }
