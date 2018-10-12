@@ -11,11 +11,14 @@ import {
   CardContent,
   CardActions,
   List,
+  Chip,
   ListItem,
   ListItemText,
 } from "@material-ui/core"
+import DoneIcon from "@material-ui/icons/Done"
 
 type Props = {
+  myDefaultAddress: string
   jobs: { [hash: string]: Job }
   fetchJobs: () => void
   clickJob: (hash: string) => () => void
@@ -34,7 +37,6 @@ class JobList extends React.Component<AllProps, State> {
     props.fetchJobs()
     this.classes = props.classes
   }
-  
 
   render() {
     return (
@@ -43,11 +45,26 @@ class JobList extends React.Component<AllProps, State> {
           <ListItem>empty</ListItem>
         ) : (
           R.map<string, any>(jobHash => {
-            const { title, location, description } = this.props.jobs[jobHash]
+            const {
+              title,
+              location,
+              description,
+              done,
+              owner,
+            } = this.props.jobs[jobHash]
             return (
-              <ListItem key={jobHash} className={this.classes.listItem} button onClick={this.props.clickJob(jobHash)}>
+              <ListItem
+                key={jobHash}
+                className={this.classes.listItem}
+                button
+                onClick={this.props.clickJob(jobHash)}
+              >
                 <Card key={jobHash} className={this.classes.card}>
                   <CardContent>
+                    {owner === this.props.myDefaultAddress ? (
+                      <Chip label="Your Job" />
+                    ) : null}
+                    {done ? <Chip label="Done" color="secondary" /> : null}
                     <Typography color="textSecondary">{location}</Typography>
                     <Typography variant="headline" component="h2">
                       {title}
@@ -71,12 +88,12 @@ type StyleClassNames = {
 
 const styles: StyleRulesCallback = theme => ({
   card: {
-    width: "100%"
+    width: "100%",
   },
   listItem: {
     paddingTop: 3,
-    paddingBottom: 3
-  }
+    paddingBottom: 3,
+  },
 })
 
 export default withStyles(styles)<Props>(JobList)

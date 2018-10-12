@@ -5,6 +5,7 @@ import { push } from "connected-react-router"
 
 const mapStateToProps = (state: any) => {
   return {
+    myDefaultAddress: state.web3.defaultEthAddress,
     jobs: state.job.jobs,
   }
 }

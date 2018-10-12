@@ -48,7 +48,9 @@ export const getHashesForAllJobs = async () => {
     )
   )
 
-  return jobHashes as Promise<{ hash: string; done: boolean; owner: string }[]>
+  return jobHashes as Promise<
+    { hash: string; done: boolean; owner: string; jobIndex: number }[]
+  >
 }
 
 export const postJob = async (jobHash: string) => {
@@ -59,7 +61,7 @@ export const postJob = async (jobHash: string) => {
   return responds
 }
 
-export const markeJobComplete = async (jobIndex: number) => {
+export const markJobComplete = async (jobIndex: number) => {
   const contract = await getContractInstance()
 
   const responds = await contract.markJobComplete(jobIndex)

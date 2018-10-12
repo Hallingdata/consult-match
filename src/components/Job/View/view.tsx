@@ -23,17 +23,14 @@ const JobView: React.SFC<Props & { classes: StyleClassNames }> = ({
   const { title, description, location, email, phone, owner, done } = job
   return (
     <>
-      {job.done ? (
-        <Chip label="This job is no longer active" color="secondary" />
-      ) : null}
+      {job.done ? <Chip label="Done" color="secondary" /> : null}
       <Typography variant="headline">{title}</Typography>
       <Typography variant="subheading">{location}</Typography>
       <Typography>{description}</Typography>
       <Typography variant="subheading">Contact</Typography>
       <Typography>Email: {email}</Typography>
       <Typography>Phone: {phone}</Typography>
-      Job Hash: {jobHash}
-      {owner == myDefaultAddress ? (
+      {owner === myDefaultAddress && !job.done ? (
         <Button onClick={() => markeJobComplete(job.jobIndex)}>
           Marke job as complete
         </Button>

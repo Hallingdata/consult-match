@@ -1,3 +1,3 @@
-import Job from "./view.container"
+import JobView from "./view.container"
 
-export default Job
+export default JobView

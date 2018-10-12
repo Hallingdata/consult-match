@@ -30,6 +30,7 @@ export const fetchAllJobs = () => async (dispatch: any) => {
           ...jobContent[index],
           done: jobHashes[index].done,
           owner: jobHashes[index].owner,
+          jobIndex: jobHashes[index].jobIndex,
         },
       }),
     {},
@@ -59,7 +60,9 @@ export const markJobComplete = (jobIndex: number) => async (
   dispatch: any,
   getStats: any
 ) => {
+  console.log("jobIndex: " + jobIndex)
   dispatch({ type: JOB_MARK_COMPLETE_STARTED })
-  await JobsContract.markeJobComplete(jobIndex)
+  await JobsContract.markJobComplete(jobIndex)
+  await dispatch(fetchAllJobs())
   dispatch({ type: JOB_MARK_COMPLETE_COMPLETE })
 }
