@@ -1,27 +1,30 @@
 import * as React from "react"
-import { StyleRulesCallback, withStyles, Typography } from "@material-ui/core"
+import {
+  withStyles,
+  Typography,
+  Theme,
+  WithStyles,
+  createStyles,
+} from "@material-ui/core"
 
-type Props = {}
+interface Props extends WithStyles<typeof styles> {}
 
-const Home: React.SFC<Props & { classes: StyleClassNames }> = ({ classes }) => {
+const Home: React.SFC<Props> = ({ classes }) => {
   return (
     <>
-      <Typography variant="display3" className={classes.header}>
+      <Typography variant="h2" className={classes.header}>
         Open marketplace for consultants
       </Typography>
     </>
   )
 }
 
-type StyleClassNames = {
-  header: string
-}
+const styles = ({  }: Theme) =>
+  createStyles({
+    header: {
+      marginTop: 100,
+      textAlign: "center",
+    },
+  })
 
-const styles: StyleRulesCallback = theme => ({
-  header: {
-    marginTop: 100,
-    textAlign: "center",
-  },
-})
-
-export default withStyles(styles)<Props>(Home)
+export default withStyles(styles)(Home)

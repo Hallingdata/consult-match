@@ -7,18 +7,17 @@ import {
   ListItem,
   ListItemText,
   TextField,
+  Theme,
+  createStyles,
+  WithStyles,
 } from "@material-ui/core"
 
-type Props = {
+interface Props extends WithStyles<typeof styles> {
   messages: ChatMessage[]
   sendMessage: (message: string) => void
 }
 
-const Chat: React.SFC<Props & { classes: StyleClassNames }> = ({
-  messages = [],
-  sendMessage,
-  classes,
-}) => {
+const Chat: React.SFC<Props> = ({ messages = [], sendMessage, classes }) => {
   let message = ""
 
   const handleEnter = (event: any) => {
@@ -60,16 +59,12 @@ const Chat: React.SFC<Props & { classes: StyleClassNames }> = ({
   )
 }
 
-type StyleClassNames = {
-  className: string
-  message: string
-}
+const styles = ({  }: Theme) =>
+  createStyles({
+    className: {
+      width: 100,
+    },
+    message: {},
+  })
 
-const styles: StyleRulesCallback = theme => ({
-  className: {
-    width: 100,
-  },
-  message: {},
-})
-
-export default withStyles(styles)<Props>(Chat)
+export default withStyles(styles)(Chat)

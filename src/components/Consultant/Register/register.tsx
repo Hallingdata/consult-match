@@ -8,16 +8,17 @@ import {
   Button,
   Typography,
   CircularProgress,
+  Theme,
+  createStyles,
+  WithStyles,
 } from "@material-ui/core"
 import ButtonWithLoading from "../../UI/ButtonWithLoading"
 import FileUploadSwarm from "../../UI/FileUploadSwarm"
 
-type Props = {
+interface Props extends WithStyles<typeof styles> {
   registerConsultant: (consultant: Consultant) => void
   waitingForRegistration: boolean
 }
-
-type AllProps = Props & { classes: StyleClassNames }
 
 type State = {
   name: string
@@ -31,8 +32,8 @@ type State = {
   submitButtonClicked: boolean
 }
 
-class RegisterConsultant extends React.Component<AllProps, State> {
-  constructor(props: AllProps, context: any) {
+class RegisterConsultant extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props)
     this.state = {
       name: "",
@@ -119,11 +120,7 @@ class RegisterConsultant extends React.Component<AllProps, State> {
         {!this.state.submitButtonClicked ||
         this.props.waitingForRegistration ? (
           <>
-            <Typography
-              variant="headline"
-              className={classes.headline}
-              gutterBottom
-            >
+            <Typography variant="h5" className={classes.headline} gutterBottom>
               Register a new consultant profile.
             </Typography>
             <form onSubmit={this.handleSubmit}>
@@ -215,10 +212,10 @@ class RegisterConsultant extends React.Component<AllProps, State> {
                   />
                 </Grid>
                 <Grid item xs={4}>
-                  <Typography variant="headline">Upload picture</Typography>
+                  <Typography variant="h5">Upload picture</Typography>
                   <FileUploadSwarm
                     onUploadComplete={this.handleImageUploaded}
-                    onUploadFailed={res => console.log("error: " + res)}
+                    onUploadFailed={(res: any) => console.log("error: " + res)}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -249,26 +246,18 @@ class RegisterConsultant extends React.Component<AllProps, State> {
   }
 }
 
-type StyleClassNames = {
-  headline: string
-  title: string
-  description: string
-  email: string
-  phone: string
-  company: string
-  skill: string
-}
+const styles = ({  }: Theme) =>
+  createStyles({
+    headline: {
+      marginTop: 20,
+    },
+    title: {},
+    description: {},
+    email: {},
+    phone: {},
+    location: {},
+    skill: {},
+    company: {},
+  })
 
-const styles: StyleRulesCallback = theme => ({
-  headline: {
-    marginTop: 20,
-  },
-  title: {},
-  description: {},
-  email: {},
-  phone: {},
-  location: {},
-  skill: {},
-})
-
-export default withStyles(styles)<Props>(RegisterConsultant as any)
+export default withStyles(styles)(RegisterConsultant)

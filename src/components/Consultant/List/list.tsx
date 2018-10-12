@@ -1,6 +1,5 @@
 import * as React from "react"
 import { SFC } from "react"
-import PropTypes from "prop-types"
 import * as R from "ramda"
 import {
   StyleRulesCallback,
@@ -14,27 +13,26 @@ import {
   ListItem,
   ListItemText,
   CardMedia,
+  Theme,
+  createStyles,
+  WithStyles,
 } from "@material-ui/core"
 
-type Props = {
+interface Props extends WithStyles<typeof styles> {
   consultants: { [hash: string]: Consultant }
   fetchConsultants: () => void
   clickConsultant: (hash: string) => () => void
   getImageLink: (hash: string | undefined) => string
 }
 
-type AllProps = Props & { classes: StyleClassNames }
-
 type State = {}
 
-class ConsultantList extends React.Component<AllProps, State> {
-  classes: StyleClassNames
+class ConsultantList extends React.Component<Props, State> {
   contract: any
 
-  constructor(props: AllProps) {
+  constructor(props: Props) {
     super(props)
     props.fetchConsultants()
-    this.classes = props.classes
   }
 
   render() {
@@ -48,13 +46,14 @@ class ConsultantList extends React.Component<AllProps, State> {
               return (
                 <ListItem
                   key={consultantHash}
-                  className={this.classes.listItem}
+                  className={this.props.classes.listItem}
                 >
-                  <Card key={consultantHash} className={this.classes.card}>
+                  <Card
+                    key={consultantHash}
+                    className={this.props.classes.card}
+                  >
                     <CardContent>
-                      <Typography variant="caption">
-                        Hash: {consultantHash}
-                      </Typography>
+                      <Typography>Hash: {consultantHash}</Typography>
                       <Typography component="p">
                         {R.path(
                           ["error"],
@@ -66,25 +65,31 @@ class ConsultantList extends React.Component<AllProps, State> {
                 </ListItem>
               )
             } else {
-              const { name, company, description, imageHash } = this.props.consultants[
-                consultantHash
-              ]
+              const {
+                name,
+                company,
+                description,
+                imageHash,
+              } = this.props.consultants[consultantHash]
               return (
                 <ListItem
                   key={consultantHash}
-                  className={this.classes.listItem}
+                  className={this.props.classes.listItem}
                   button
                   onClick={this.props.clickConsultant(consultantHash)}
                 >
-                  <Card key={consultantHash} className={this.classes.card}>
+                  <Card
+                    key={consultantHash}
+                    className={this.props.classes.card}
+                  >
                     <CardMedia
-                      className={this.classes.profilePicture}
+                      className={this.props.classes.profilePicture}
                       image={this.props.getImageLink(imageHash)}
                       title="Live from space album cover"
                     />
                     <CardContent>
                       <Typography color="textSecondary">{company}</Typography>
-                      <Typography variant="headline" component="h2">
+                      <Typography variant="h5" component="h2">
                         {name}
                       </Typography>
                       <Typography component="p">{description}</Typography>
@@ -100,29 +105,24 @@ class ConsultantList extends React.Component<AllProps, State> {
   }
 }
 
-type StyleClassNames = {
-  card: string
-  listItem: string
-  profilePicture: string
-}
+const styles = ({  }: Theme) =>
+  createStyles({
+    card: {
+      width: "100%",
+    },
+    listItem: {
+      paddingTop: 3,
+      paddingBottom: 3,
+    },
+    profilePicture: {
+      borderRadius: "50%",
+      objectFit: "cover",
+      width: 100,
+      height: 100,
+      float: "left",
+      margin: 10,
+      marginRight: 30,
+    },
+  })
 
-const styles: StyleRulesCallback = theme => ({
-  card: {
-    width: "100%",
-  },
-  listItem: {
-    paddingTop: 3,
-    paddingBottom: 3,
-  },
-  profilePicture: {
-    borderRadius: "50%",
-    objectFit: "cover",
-    width: 100,
-    height: 100,
-    float: "left",
-    margin: 10,
-    marginRight: 30
-  },
-})
-
-export default withStyles(styles)<Props>(ConsultantList)
+export default withStyles(styles)<any>(ConsultantList)

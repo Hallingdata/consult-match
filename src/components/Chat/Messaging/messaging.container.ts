@@ -33,7 +33,7 @@ const mapDispatchToProps = (
   }
 }
 
-export default connect<any, any, Props>(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)<any>(Messaging)
+)(Messaging)

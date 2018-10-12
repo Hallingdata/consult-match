@@ -2,22 +2,20 @@ import {
   List,
   ListItem,
   ListItemText,
-  StyleRulesCallback,
   withStyles,
+  Theme,
+  createStyles,
+  WithStyles,
 } from "@material-ui/core"
 import * as R from "ramda"
 import * as React from "react"
 
-type Props = {
+interface Props extends WithStyles<typeof styles> {
   contacts: { contact: string; jobHash: string }[]
   openChat: (jobHash: string, contact: string) => void
 }
 
-const ChatContactList: React.SFC<Props & { classes: StyleClassNames }> = ({
-  contacts,
-  openChat,
-  classes,
-}) => {
+const ChatContactList: React.SFC<Props> = ({ contacts, openChat, classes }) => {
   console.log("contact list")
   console.log(contacts)
   return (
@@ -40,16 +38,12 @@ const ChatContactList: React.SFC<Props & { classes: StyleClassNames }> = ({
   )
 }
 
-type StyleClassNames = {
-  className: string
-  message: string
-}
+const styles = ({  }: Theme) =>
+  createStyles({
+    className: {
+      width: 100,
+    },
+    message: {},
+  })
 
-const styles: StyleRulesCallback = theme => ({
-  className: {
-    width: 100,
-  },
-  message: {},
-})
-
-export default withStyles(styles)<Props>(ChatContactList)
+export default withStyles(styles)(ChatContactList)

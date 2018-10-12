@@ -1,13 +1,13 @@
 import * as React from "react"
-import { StyleRulesCallback, withStyles } from "@material-ui/core"
+import { withStyles, Theme, WithStyles, createStyles } from "@material-ui/core"
 import { publishFile } from "../../integrations/swarm"
 
-type Props = {
+interface Props extends WithStyles<typeof styles> {
   onUploadComplete: (hash: string) => void
   onUploadFailed: (error: Error) => void
 }
 
-const FileUploadSwarm: React.SFC<Props & { classes: StyleClassNames }> = ({
+const FileUploadSwarm: React.SFC<Props> = ({
   onUploadComplete,
   onUploadFailed,
 }) => {
@@ -18,17 +18,19 @@ const FileUploadSwarm: React.SFC<Props & { classes: StyleClassNames }> = ({
       .then(onUploadComplete)
       .catch(onUploadFailed)
   }
-  return <input type="file" onChange={e => e.target.files != null && handleFileUpload(e.target.files)} />
+  return (
+    <input
+      type="file"
+      onChange={e => e.target.files != null && handleFileUpload(e.target.files)}
+    />
+  )
 }
 
-type StyleClassNames = {
-  className: string
-}
+const styles = ({  }: Theme) =>
+  createStyles({
+    className: {
+      width: 100,
+    },
+  })
 
-const styles: StyleRulesCallback = theme => ({
-  className: {
-    width: 100,
-  },
-})
-
-export default withStyles(styles)<Props>(FileUploadSwarm)
+export default withStyles(styles)(FileUploadSwarm)

@@ -1,6 +1,6 @@
 import Notifications from "./notifications"
 import { connect } from "react-redux"
-import { closeNotification } from "../../state/actions/notifications";
+import { closeNotification } from "../../state/actions/notifications"
 
 const mapStateToProps = (state: any, { match }: any) => {
   return {
@@ -12,11 +12,11 @@ const mapStateToProps = (state: any, { match }: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    close: () => dispatch(closeNotification()) 
+    close: () => dispatch(closeNotification()),
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)<any>(Notifications)
+)(Notifications)

@@ -26,17 +26,16 @@ const getContractInstance = async () => {
 
 export const getHashesForAllConsultants = async () => {
   const contract = await getContractInstance()
-  console.log("done with that")
   const numberOfConsultants = parseInt(await contract.numberOfConsultants())
 
-  console.log("Number of consultants in the consultants contract: " + numberOfConsultants)
+  console.log(
+    "Number of consultants in the consultants contract: " + numberOfConsultants
+  )
 
   const consultantHashes = await Promise.all(
     R.map(
       index =>
-        contract
-          .getConsultant(index)
-          .then((_: any) => web3.utils.toAscii(_)),
+        contract.getConsultant(index).then((_: any) => web3.utils.toAscii(_)),
       R.range(0, numberOfConsultants)
     )
   )
@@ -47,7 +46,9 @@ export const getHashesForAllConsultants = async () => {
 export const addConsultant = async (consultantHash: string) => {
   const contract = await getContractInstance()
 
-  const responds = await contract.addConsultant(web3.utils.fromAscii(consultantHash))
+  const responds = await contract.addConsultant(
+    web3.utils.fromAscii(consultantHash)
+  )
   //.send({ gas: 99999999 })
 
   return responds

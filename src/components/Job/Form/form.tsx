@@ -1,17 +1,23 @@
-import * as React from "react"
+import {
+  Grid,
+  StyleRulesCallback,
+  TextField,
+  Typography,
+  withStyles,
+  WithStyles,
+  Theme,
+  createStyles,
+} from "@material-ui/core"
 import * as R from "ramda"
-import { StyleRulesCallback, withStyles, Grid } from "@material-ui/core"
-import { TextField, Button, Typography } from "@material-ui/core"
-import ButtonWithLoading from "../../UI/ButtonWithLoading"
+import * as React from "react"
 import Lottie from "react-lottie"
 import * as animationData from "../../../animations/checked_done_.json"
+import ButtonWithLoading from "../../UI/ButtonWithLoading"
 
-type Props = {
+interface Props extends WithStyles<typeof styles> {
   postJob: (job: Job) => void
   waitingForJobPosting: boolean
 }
-
-type AllProps = Props & { classes: StyleClassNames }
 
 type State = {
   title: string
@@ -22,10 +28,10 @@ type State = {
   submitButtonClicked: boolean
 }
 
-class CreateJobForm extends React.Component<AllProps, State> {
+class CreateJobForm extends React.Component<Props, State> {
   contract: any
 
-  constructor(props: AllProps, context: any) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       title: "",
@@ -70,11 +76,7 @@ class CreateJobForm extends React.Component<AllProps, State> {
       <>
         {!this.state.submitButtonClicked || this.props.waitingForJobPosting ? (
           <>
-            <Typography
-              variant="headline"
-              className={classes.headline}
-              gutterBottom
-            >
+            <Typography variant="h5" className={classes.headline} gutterBottom>
               Post a Job
             </Typography>
             <form onSubmit={this.handleSubmit}>
@@ -170,24 +172,16 @@ class CreateJobForm extends React.Component<AllProps, State> {
   }
 }
 
-type StyleClassNames = {
-  headline: string
-  title: string
-  description: string
-  location: string
-  email: string
-  phone: string
-}
+const styles = ({  }: Theme) =>
+  createStyles({
+    headline: {
+      marginTop: 20,
+    },
+    title: {},
+    description: {},
+    location: {},
+    email: {},
+    phone: {},
+  })
 
-const styles: StyleRulesCallback = theme => ({
-  headline: {
-    marginTop: 20,
-  },
-  title: {},
-  description: {},
-  location: {},
-  email: {},
-  phone: {},
-})
-
-export default withStyles(styles)<Props>(CreateJobForm as any)
+export default withStyles(styles)(CreateJobForm)

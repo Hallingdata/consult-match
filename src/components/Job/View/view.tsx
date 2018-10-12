@@ -1,20 +1,22 @@
 import * as React from "react"
 import {
-  StyleRulesCallback,
-  withStyles,
   TextField,
   Chip,
+  withStyles,
+  Theme,
+  WithStyles,
+  createStyles,
 } from "@material-ui/core"
 import { Typography, Button } from "@material-ui/core"
 
-type Props = {
+interface Props extends WithStyles<typeof styles> {
   job: Job
   jobHash: string
   myDefaultAddress: string
   markeJobComplete: (jobIndex: number) => void
 }
 
-const JobView: React.SFC<Props & { classes: StyleClassNames }> = ({
+const JobView: React.SFC<Props> = ({
   job,
   jobHash,
   myDefaultAddress,
@@ -24,10 +26,10 @@ const JobView: React.SFC<Props & { classes: StyleClassNames }> = ({
   return (
     <>
       {job.done ? <Chip label="Done" color="secondary" /> : null}
-      <Typography variant="headline">{title}</Typography>
-      <Typography variant="subheading">{location}</Typography>
+      <Typography variant="h5">{title}</Typography>
+      <Typography variant="subtitle1">{location}</Typography>
       <Typography>{description}</Typography>
-      <Typography variant="subheading">Contact</Typography>
+      <Typography variant="subtitle1">Contact</Typography>
       <Typography>Email: {email}</Typography>
       <Typography>Phone: {phone}</Typography>
       {owner === myDefaultAddress && !job.done ? (
@@ -39,14 +41,11 @@ const JobView: React.SFC<Props & { classes: StyleClassNames }> = ({
   )
 }
 
-type StyleClassNames = {
-  className: string
-}
+const styles = ({  }: Theme) =>
+  createStyles({
+    className: {
+      width: 100,
+    },
+  })
 
-const styles: StyleRulesCallback = theme => ({
-  className: {
-    width: 100,
-  },
-})
-
-export default withStyles(styles)<Props>(JobView)
+export default withStyles(styles)(JobView)

@@ -1,18 +1,20 @@
 import {
   Chip,
-  StyleRulesCallback,
   Typography,
   withStyles,
+  Theme,
+  createStyles,
+  WithStyles,
 } from "@material-ui/core"
 import * as R from "ramda"
 import * as React from "react"
 
-type Props = {
+interface Props extends WithStyles<typeof styles> {
   consultant: Consultant
   getImageLink: (hash: string | undefined) => string
 }
 
-const ConsultantProfile: React.SFC<Props & { classes: StyleClassNames }> = ({
+const ConsultantProfile: React.SFC<Props> = ({
   consultant,
   getImageLink,
   classes,
@@ -28,8 +30,8 @@ const ConsultantProfile: React.SFC<Props & { classes: StyleClassNames }> = ({
   } = consultant
   return (
     <>
-      <Typography variant="headline">{name}</Typography>
-      <Typography variant="subheading">{company}</Typography>
+      <Typography variant="h5">{name}</Typography>
+      <Typography variant="subtitle1">{company}</Typography>
       {R.map(
         skill => (
           <Chip key={`skill-${skill}`} label={skill} />
@@ -48,21 +50,17 @@ const ConsultantProfile: React.SFC<Props & { classes: StyleClassNames }> = ({
   )
 }
 
-type StyleClassNames = {
-  className: string
-  profilePicture: string
-}
+const styles = ({  }: Theme) =>
+  createStyles({
+    className: {
+      width: 100,
+    },
+    profilePicture: {
+      borderRadius: "50%",
+      objectFit: "cover",
+      width: 230,
+      height: 230,
+    },
+  })
 
-const styles: StyleRulesCallback = theme => ({
-  className: {
-    width: 100,
-  },
-  profilePicture: {
-    borderRadius: "50%",
-    objectFit: "cover",
-    width: 230,
-    height: 230,
-  },
-})
-
-export default withStyles(styles)<Props>(ConsultantProfile)
+export default withStyles(styles)(ConsultantProfile)

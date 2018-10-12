@@ -1,6 +1,5 @@
 import * as React from "react"
 import { SFC } from "react"
-import PropTypes from "prop-types"
 import * as R from "ramda"
 import {
   StyleRulesCallback,
@@ -14,28 +13,25 @@ import {
   Chip,
   ListItem,
   ListItemText,
+  createStyles,
+  Theme,
+  WithStyles,
 } from "@material-ui/core"
 import DoneIcon from "@material-ui/icons/Done"
 
-type Props = {
+interface Props extends WithStyles<typeof styles> {
   myDefaultAddress: string
   jobs: { [hash: string]: Job }
   fetchJobs: () => void
   clickJob: (hash: string) => () => void
 }
 
-type AllProps = Props & { classes: StyleClassNames }
-
 type State = {}
 
-class JobList extends React.Component<AllProps, State> {
-  classes: StyleClassNames
-  contract: any
-
-  constructor(props: AllProps) {
+class JobList extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props)
     props.fetchJobs()
-    this.classes = props.classes
   }
 
   render() {
@@ -55,18 +51,18 @@ class JobList extends React.Component<AllProps, State> {
             return (
               <ListItem
                 key={jobHash}
-                className={this.classes.listItem}
+                className={this.props.classes.listItem}
                 button
                 onClick={this.props.clickJob(jobHash)}
               >
-                <Card key={jobHash} className={this.classes.card}>
+                <Card key={jobHash} className={this.props.classes.card}>
                   <CardContent>
                     {owner === this.props.myDefaultAddress ? (
                       <Chip label="Your Job" />
                     ) : null}
                     {done ? <Chip label="Done" color="secondary" /> : null}
                     <Typography color="textSecondary">{location}</Typography>
-                    <Typography variant="headline" component="h2">
+                    <Typography variant="h5" component="h2">
                       {title}
                     </Typography>
                     <Typography component="p">{description}</Typography>
@@ -81,19 +77,15 @@ class JobList extends React.Component<AllProps, State> {
   }
 }
 
-type StyleClassNames = {
-  card: string
-  listItem: string
-}
+const styles = ({  }: Theme) =>
+  createStyles({
+    card: {
+      width: "100%",
+    },
+    listItem: {
+      paddingTop: 3,
+      paddingBottom: 3,
+    },
+  })
 
-const styles: StyleRulesCallback = theme => ({
-  card: {
-    width: "100%",
-  },
-  listItem: {
-    paddingTop: 3,
-    paddingBottom: 3,
-  },
-})
-
-export default withStyles(styles)<Props>(JobList)
+export default withStyles(styles)(JobList)

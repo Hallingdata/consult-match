@@ -3,6 +3,9 @@ import green from "@material-ui/core/colors/green"
 import { createMuiTheme } from "@material-ui/core"
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   spacing: {
     unit: 20,
   },
@@ -19,7 +22,6 @@ const theme = createMuiTheme({
 })
 
 export default theme
-
 
 /**
  * 42a5f5

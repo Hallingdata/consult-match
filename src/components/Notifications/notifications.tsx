@@ -1,60 +1,55 @@
 import * as React from "react"
 import {
-  StyleRulesCallback,
   withStyles,
   Snackbar,
   SnackbarContent,
+  Theme,
+  WithStyles,
+  createStyles,
 } from "@material-ui/core"
 import * as R from "ramda"
 
-type Props = {
+interface Props extends WithStyles<typeof styles> {
   message: string
   type: string
   open: boolean
-  close: (event: any, reason: string) => void
+  close: () => void
 }
 
-const Notifications: React.SFC<Props & { classes: StyleClassNames }> = ({
+const Notifications: React.SFC<Props> = ({
   message,
   type,
   open,
   close,
   classes,
-}) => {
-  console.log(`open? ${open}`)
-  return (
-    <Snackbar
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
-      }}
-      open={open}
-      autoHideDuration={10000}
-      onClose={close}
-      ContentProps={{
-        "aria-describedby": "message-id",
-      }}
-    >
-      <SnackbarContent
-        className={classes[type]}
-        message={<span id="message-id">{message}</span>}
-      />
-    </Snackbar>
-  )
-}
+}) => (
+  <Snackbar
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "left",
+    }}
+    open={open}
+    autoHideDuration={10000}
+    onClose={close}
+    ContentProps={{
+      "aria-describedby": "message-id",
+    }}
+  >
+    <SnackbarContent
+      className={classes[type]}
+      message={<span id="message-id">{message}</span>}
+    />
+  </Snackbar>
+)
 
-type StyleClassNames = {
-  error: string
-  info: string
-}
+const styles = ({ palette }: Theme) =>
+  createStyles({
+    error: {
+      backgroundColor: palette.error.dark,
+    },
+    info: {
+      backgroundColor: palette.primary.dark,
+    },
+  })
 
-const styles: StyleRulesCallback = theme => ({
-  error: {
-    backgroundColor: theme.palette.error.dark,
-  },
-  info: {
-    backgroundColor: theme.palette.primary.dark,
-  },
-})
-
-export default withStyles(styles)<Props>(Notifications)
+export default withStyles(styles)(Notifications)
