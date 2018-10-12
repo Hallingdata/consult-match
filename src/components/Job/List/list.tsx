@@ -17,7 +17,7 @@ import {
   Theme,
   WithStyles,
 } from "@material-ui/core"
-import DoneIcon from "@material-ui/icons/Done"
+import WarningIcon from "@material-ui/icons/Warning"
 
 interface Props extends WithStyles<typeof styles> {
   myDefaultAddress: string
@@ -60,7 +60,13 @@ class JobList extends React.Component<Props, State> {
                     {owner === this.props.myDefaultAddress ? (
                       <Chip label="Your Job" />
                     ) : null}
-                    {done ? <Chip label="Done" color="secondary" /> : null}
+                    {done ? (
+                      <Chip
+                        label="position filled"
+                        color="secondary"
+                        icon={<WarningIcon />}
+                      />
+                    ) : null}
                     <Typography color="textSecondary">{location}</Typography>
                     <Typography variant="h5" component="h2">
                       {title}

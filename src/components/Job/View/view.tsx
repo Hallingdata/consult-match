@@ -8,6 +8,7 @@ import {
   createStyles,
 } from "@material-ui/core"
 import { Typography, Button } from "@material-ui/core"
+import WarningIcon from "@material-ui/icons/Warning"
 
 interface Props extends WithStyles<typeof styles> {
   job: Job
@@ -25,7 +26,13 @@ const JobView: React.SFC<Props> = ({
   const { title, description, location, email, phone, owner, done } = job
   return (
     <>
-      {job.done ? <Chip label="Done" color="secondary" /> : null}
+      {job.done ? (
+        <Chip
+          label="position filled"
+          color="secondary"
+          icon={<WarningIcon />}
+        />
+      ) : null}
       <Typography variant="h5">{title}</Typography>
       <Typography variant="subtitle1">{location}</Typography>
       <Typography>{description}</Typography>
