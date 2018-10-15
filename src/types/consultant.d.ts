@@ -1,4 +1,7 @@
 type Consultant = {
+  hash?: string
+  consultantIndex?: number
+  isRemoved?: boolean
   name: string
   company: string
   description: string
@@ -6,4 +9,5 @@ type Consultant = {
   phone: string
   skills: string[]
   imageHash?: string
+  owner?: string
 }

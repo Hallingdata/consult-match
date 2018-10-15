@@ -25,7 +25,7 @@ const getContractInstance = async () => {
   return contract
 }
 
-export const getHashesForAllJobs = async () => {
+export const getBlockchainDataForAllJobs = async () => {
   const contract = await getContractInstance()
 
   const numberOfJobs = parseInt(await contract.numberOfJobs())
@@ -36,7 +36,6 @@ export const getHashesForAllJobs = async () => {
     R.map(
       index =>
         contract.getJob(index).then((_: any) => {
-          console.log(_)
           return {
             hash: web3.utils.toAscii(_[0]),
             done: _[1],

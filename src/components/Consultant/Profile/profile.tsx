@@ -5,18 +5,23 @@ import {
   Theme,
   createStyles,
   WithStyles,
+  Button,
 } from "@material-ui/core"
 import * as R from "ramda"
 import * as React from "react"
 
 interface Props extends WithStyles<typeof styles> {
   consultant: Consultant
+  myDefaultAddress: string
   getImageLink: (hash: string | undefined) => string
+  removeConsultantProfile: (consultantIndex: number) => void
 }
 
 const ConsultantProfile: React.SFC<Props> = ({
   consultant,
   getImageLink,
+  myDefaultAddress,
+  removeConsultantProfile,
   classes,
 }) => {
   const {
@@ -27,6 +32,9 @@ const ConsultantProfile: React.SFC<Props> = ({
     imageHash,
     email,
     phone,
+    owner,
+    isRemoved,
+    consultantIndex,
   } = consultant
   return (
     <>
@@ -46,6 +54,13 @@ const ConsultantProfile: React.SFC<Props> = ({
       />
       <Typography>Email: {email}</Typography>
       <Typography>Phone: {phone}</Typography>
+      {owner === myDefaultAddress && !isRemoved ? (
+        <Button
+          onClick={() => removeConsultantProfile(consultantIndex as number)}
+        >
+          Remove profile
+        </Button>
+      ) : null}
     </>
   )
 }

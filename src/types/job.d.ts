@@ -1,4 +1,5 @@
 type Job = {
+  hash: string
   jobIndex: number
   title: string
   location: string

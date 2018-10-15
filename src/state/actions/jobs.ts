@@ -17,24 +17,20 @@ export const setJobs = (jobs: any) => ({
 })
 
 export const fetchAllJobs = () => async (dispatch: any) => {
-  const jobHashes = await JobsContract.getHashesForAllJobs()
-
-  const jobContent = await Promise.all(
-    R.map(({ hash }) => Swarm.getContent(hash), jobHashes)
+  const jobBlockchainData = await JobsContract.getBlockchainDataForAllJobs()
+  const jobSwarmContent = await Promise.all(
+    R.map(({ hash }) => Swarm.getContent(hash), jobBlockchainData)
   )
+
+  const jobs: any = R.zipWith(R.merge, jobBlockchainData, jobSwarmContent)
 
   const jobsMap = R.reduce(
     (acc, index: number) =>
       R.merge(acc, {
-        [jobHashes[index].hash]: {
-          ...jobContent[index],
-          done: jobHashes[index].done,
-          owner: jobHashes[index].owner,
-          jobIndex: jobHashes[index].jobIndex,
-        },
+        [jobs[index].hash]: jobs[index],
       }),
     {},
-    R.range(0, jobContent.length)
+    R.range(0, jobs.length)
   )
 
   dispatch(setJobs(jobsMap))

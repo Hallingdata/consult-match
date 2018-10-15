@@ -2,6 +2,7 @@ import * as React from "react"
 import { SFC } from "react"
 import * as R from "ramda"
 import {
+  Chip,
   StyleRulesCallback,
   withStyles,
   Button,
@@ -19,6 +20,7 @@ import {
 } from "@material-ui/core"
 
 interface Props extends WithStyles<typeof styles> {
+  myDefaultAddress: string
   consultants: { [hash: string]: Consultant }
   fetchConsultants: () => void
   clickConsultant: (hash: string) => () => void
@@ -70,6 +72,7 @@ class ConsultantList extends React.Component<Props, State> {
                 company,
                 description,
                 imageHash,
+                owner,
               } = this.props.consultants[consultantHash]
               return (
                 <ListItem
@@ -88,6 +91,9 @@ class ConsultantList extends React.Component<Props, State> {
                       title="Live from space album cover"
                     />
                     <CardContent>
+                      {owner === this.props.myDefaultAddress ? (
+                        <Chip label="Your Job" />
+                      ) : null}
                       <Typography color="textSecondary">{company}</Typography>
                       <Typography variant="h5" component="h2">
                         {name}

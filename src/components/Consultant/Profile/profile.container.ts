@@ -1,18 +1,22 @@
 import ConsultantProfile from "./profile"
 import { fetchAllConsultants } from "../../../state/actions/consultants"
 import { connect } from "react-redux"
-import {getLink} from "../../../integrations/swarm"
+import { getLink } from "../../../integrations/swarm"
+import { removeConsultant } from "../../../state/actions/consultants"
 
 const mapStateToProps = (state: any, { match }: any) => {
-  console.log("This consultants hash:  " + match.params.hash)
   return {
     consultant: state.consultant.consultants[match.params.hash],
+    myDefaultAddress: state.web3.defaultEthAddress,
   }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getImageLink: (imageHash: string | undefined) => imageHash != null ? getLink(imageHash): ""
+    getImageLink: (imageHash: string | undefined) =>
+      imageHash != null ? getLink(imageHash) : "",
+    removeConsultantProfile: (consultantIndex: number) =>
+      dispatch(removeConsultant(consultantIndex)),
   }
 }
 
