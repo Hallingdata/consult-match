@@ -4,9 +4,12 @@ import {
   TextField,
   Typography,
   withStyles,
+  CardContent,
+  CardActions,
   WithStyles,
   Theme,
   createStyles,
+  Card,
 } from "@material-ui/core"
 import * as R from "ramda"
 import * as React from "react"
@@ -73,90 +76,96 @@ class CreateJobForm extends React.Component<Props, State> {
     }
     const { classes } = this.props
     return (
-      <>
+      <Card className={classes.card}>
         {!this.state.submitButtonClicked || this.props.waitingForJobPosting ? (
           <>
-            <Typography variant="h5" className={classes.headline} gutterBottom>
-              Post a Job
-            </Typography>
-            <form onSubmit={this.handleSubmit}>
-              <Grid container spacing={16}>
-                <Grid item xs={6}>
-                  <TextField
-                    className={classes.title}
-                    id="title"
-                    label="Title"
-                    value={this.state.title}
-                    onChange={this.handleChange("title")}
-                    margin="normal"
-                    fullWidth
-                    required
-                  />
+            <CardContent>
+              <Typography
+                variant="h5"
+                className={classes.headline}
+                gutterBottom
+              >
+                Post a Job
+              </Typography>
+              <form onSubmit={this.handleSubmit}>
+                <Grid container spacing={16}>
+                  <Grid item xs={6}>
+                    <TextField
+                      className={classes.title}
+                      id="title"
+                      label="Title"
+                      value={this.state.title}
+                      onChange={this.handleChange("title")}
+                      margin="normal"
+                      fullWidth
+                      required
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      className={classes.location}
+                      id="location"
+                      label="Location"
+                      value={this.state.location}
+                      onChange={this.handleChange("location")}
+                      margin="normal"
+                      fullWidth
+                      required
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      className={classes.description}
+                      id="description"
+                      label="Description"
+                      multiline
+                      value={this.state.description}
+                      onChange={this.handleChange("description")}
+                      margin="normal"
+                      rows={5}
+                      fullWidth
+                      required
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      className={classes.email}
+                      id="email"
+                      label="Email"
+                      value={this.state.email}
+                      onChange={this.handleChange("email")}
+                      margin="normal"
+                      fullWidth
+                      required
+                      type="email"
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      className={classes.phone}
+                      id="phone"
+                      label="phone"
+                      value={this.state.phone}
+                      onChange={this.handleChange("phone")}
+                      margin="normal"
+                      fullWidth
+                      type="tel"
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    className={classes.location}
-                    id="location"
-                    label="Location"
-                    value={this.state.location}
-                    onChange={this.handleChange("location")}
-                    margin="normal"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    className={classes.description}
-                    id="description"
-                    label="Description"
-                    multiline
-                    value={this.state.description}
-                    onChange={this.handleChange("description")}
-                    margin="normal"
-                    rows={5}
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    className={classes.email}
-                    id="email"
-                    label="Email"
-                    value={this.state.email}
-                    onChange={this.handleChange("email")}
-                    margin="normal"
-                    fullWidth
-                    required
-                    type="email"
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    className={classes.phone}
-                    id="phone"
-                    label="phone"
-                    value={this.state.phone}
-                    onChange={this.handleChange("phone")}
-                    margin="normal"
-                    fullWidth
-                    type="tel"
-                  />
-                </Grid>
-                <Grid item>
-                  <ButtonWithLoading
-                    color="secondary"
-                    variant="contained"
-                    loading={this.state.submitButtonClicked}
-                    type="submit"
-                    value="Submit"
-                  >
-                    Post Job
-                  </ButtonWithLoading>
-                </Grid>
-              </Grid>
-            </form>
+              </form>
+            </CardContent>
+            <CardActions>
+              <ButtonWithLoading
+                color="secondary"
+                variant="contained"
+                loading={this.state.submitButtonClicked}
+                type="submit"
+                value="Submit"
+              >
+                Post Job
+              </ButtonWithLoading>
+            </CardActions>
           </>
         ) : (
           <>
@@ -167,7 +176,7 @@ class CreateJobForm extends React.Component<Props, State> {
             </Typography>
           </>
         )}
-      </>
+      </Card>
     )
   }
 }
@@ -182,6 +191,11 @@ const styles = ({  }: Theme) =>
     location: {},
     email: {},
     phone: {},
+    card: {
+      maxWidth: 900,
+      margin: "auto",
+      marginTop: 150,
+    },
   })
 
 export default withStyles(styles)(CreateJobForm)

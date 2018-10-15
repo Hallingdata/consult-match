@@ -39,7 +39,7 @@ class ConsultantList extends React.Component<Props, State> {
 
   render() {
     return (
-      <List>
+      <List className={this.props.classes.list}>
         {R.isEmpty(this.props.consultants) ? (
           <ListItem>empty</ListItem>
         ) : (
@@ -113,12 +113,17 @@ class ConsultantList extends React.Component<Props, State> {
 
 const styles = ({  }: Theme) =>
   createStyles({
+    list: {
+      marginTop: 150,
+    },
     card: {
       width: "100%",
     },
     listItem: {
       paddingTop: 3,
       paddingBottom: 3,
+      maxWidth: 900,
+      margin: "auto",
     },
     profilePicture: {
       borderRadius: "50%",

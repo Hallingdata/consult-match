@@ -5,6 +5,9 @@ import * as animationData from "../../../animations/checked_done_.json"
 import { Chip, StyleRulesCallback, withStyles, Grid } from "@material-ui/core"
 import {
   TextField,
+  Card,
+  CardActions,
+  CardContent,
   Button,
   Typography,
   CircularProgress,
@@ -116,121 +119,130 @@ class RegisterConsultant extends React.Component<Props, State> {
     }
     const { classes } = this.props
     return (
-      <>
+      <Card className={classes.card}>
         {!this.state.submitButtonClicked ||
         this.props.waitingForRegistration ? (
           <>
-            <Typography variant="h5" className={classes.headline} gutterBottom>
-              Register a new consultant profile.
-            </Typography>
-            <form onSubmit={this.handleSubmit}>
-              <Grid container spacing={16}>
-                <Grid item xs={6}>
-                  <TextField
-                    className={classes.title}
-                    id="name"
-                    label="Name"
-                    value={this.state.name}
-                    onChange={this.handleChange("name")}
-                    margin="normal"
-                    fullWidth
-                    required
-                  />
+            <CardContent>
+              <Typography
+                variant="h5"
+                className={classes.headline}
+                gutterBottom
+              >
+                Register a new consultant profile.
+              </Typography>
+              <form onSubmit={this.handleSubmit}>
+                <Grid container spacing={16}>
+                  <Grid item xs={6}>
+                    <TextField
+                      className={classes.title}
+                      id="name"
+                      label="Name"
+                      value={this.state.name}
+                      onChange={this.handleChange("name")}
+                      margin="normal"
+                      fullWidth
+                      required
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      className={classes.company}
+                      id="company"
+                      label="Company"
+                      value={this.state.company}
+                      onChange={this.handleChange("company")}
+                      margin="normal"
+                      fullWidth
+                      required
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      className={classes.description}
+                      id="description"
+                      label="Description"
+                      multiline
+                      value={this.state.description}
+                      onChange={this.handleChange("description")}
+                      margin="normal"
+                      rows={5}
+                      fullWidth
+                      required
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    {R.map(
+                      skill => (
+                        <Chip
+                          key={`skill-${skill}`}
+                          label={skill}
+                          onDelete={this.skillHandleDelete(skill)}
+                        />
+                      ),
+                      this.state.skills
+                    )}
+                    <TextField
+                      className={classes.skill}
+                      id="skill"
+                      label="Skill"
+                      value={this.state.newSkill}
+                      onChange={this.handleChange("newSkill")}
+                      onKeyPress={this.skillHandleNew}
+                      margin="normal"
+                      helperText="Press ENTER to add a skill"
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      className={classes.email}
+                      id="email"
+                      label="Email"
+                      value={this.state.email}
+                      onChange={this.handleChange("email")}
+                      margin="normal"
+                      fullWidth
+                      required
+                      type="email"
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      className={classes.phone}
+                      id="phone"
+                      label="phone"
+                      value={this.state.phone}
+                      onChange={this.handleChange("phone")}
+                      margin="normal"
+                      fullWidth
+                      type="tel"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography variant="h5">Upload picture</Typography>
+                    <FileUploadSwarm
+                      onUploadComplete={this.handleImageUploaded}
+                      onUploadFailed={(res: any) =>
+                        console.log("error: " + res)
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12} />
                 </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    className={classes.company}
-                    id="company"
-                    label="Company"
-                    value={this.state.company}
-                    onChange={this.handleChange("company")}
-                    margin="normal"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    className={classes.description}
-                    id="description"
-                    label="Description"
-                    multiline
-                    value={this.state.description}
-                    onChange={this.handleChange("description")}
-                    margin="normal"
-                    rows={5}
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  {R.map(
-                    skill => (
-                      <Chip
-                        key={`skill-${skill}`}
-                        label={skill}
-                        onDelete={this.skillHandleDelete(skill)}
-                      />
-                    ),
-                    this.state.skills
-                  )}
-                  <TextField
-                    className={classes.skill}
-                    id="skill"
-                    label="Skill"
-                    value={this.state.newSkill}
-                    onChange={this.handleChange("newSkill")}
-                    onKeyPress={this.skillHandleNew}
-                    margin="normal"
-                    helperText="Press ENTER to add a skill"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    className={classes.email}
-                    id="email"
-                    label="Email"
-                    value={this.state.email}
-                    onChange={this.handleChange("email")}
-                    margin="normal"
-                    fullWidth
-                    required
-                    type="email"
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    className={classes.phone}
-                    id="phone"
-                    label="phone"
-                    value={this.state.phone}
-                    onChange={this.handleChange("phone")}
-                    margin="normal"
-                    fullWidth
-                    type="tel"
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <Typography variant="h5">Upload picture</Typography>
-                  <FileUploadSwarm
-                    onUploadComplete={this.handleImageUploaded}
-                    onUploadFailed={(res: any) => console.log("error: " + res)}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <ButtonWithLoading
-                    color="secondary"
-                    variant="contained"
-                    loading={this.state.submitButtonClicked}
-                    type="submit"
-                    value="Submit"
-                  >
-                    Register
-                  </ButtonWithLoading>
-                </Grid>
-              </Grid>
-            </form>
+              </form>
+            </CardContent>
+            <CardActions>
+              <ButtonWithLoading
+                color="secondary"
+                variant="contained"
+                loading={this.state.submitButtonClicked}
+                type="submit"
+                value="Submit"
+              >
+                Register
+              </ButtonWithLoading>
+            </CardActions>
           </>
         ) : (
           <>
@@ -241,7 +253,7 @@ class RegisterConsultant extends React.Component<Props, State> {
             </Typography>
           </>
         )}
-      </>
+      </Card>
     )
   }
 }
@@ -258,6 +270,11 @@ const styles = ({  }: Theme) =>
     location: {},
     skill: {},
     company: {},
+    card: {
+      maxWidth: 900,
+      margin: "auto",
+      marginTop: 150,
+    },
   })
 
 export default withStyles(styles)(RegisterConsultant)
