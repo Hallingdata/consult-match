@@ -119,7 +119,7 @@ class CreateJobForm extends React.Component<Props, State> {
                     required
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                   <TextField
                     className={classes.email}
                     id="email"
@@ -132,7 +132,7 @@ class CreateJobForm extends React.Component<Props, State> {
                     type="email"
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                   <TextField
                     className={classes.phone}
                     id="phone"
