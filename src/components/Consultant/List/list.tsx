@@ -98,7 +98,10 @@ class ConsultantList extends React.Component<Props, State> {
                       <Typography variant="h5" component="h2">
                         {name}
                       </Typography>
-                      <Typography component="p">{description}</Typography>
+                      <Typography component="p">
+                        {R.slice(0, 95, description)}
+                        {description.length > 95 ? "..." : null}
+                      </Typography>
                     </CardContent>
                   </Card>
                 </ListItem>

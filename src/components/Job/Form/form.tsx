@@ -79,15 +79,15 @@ class CreateJobForm extends React.Component<Props, State> {
       <Card className={classes.card}>
         {!this.state.submitButtonClicked || this.props.waitingForJobPosting ? (
           <>
-            <CardContent>
-              <Typography
-                variant="h5"
-                className={classes.headline}
-                gutterBottom
-              >
-                Post a Job
-              </Typography>
-              <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
+              <CardContent>
+                <Typography
+                  variant="h5"
+                  className={classes.headline}
+                  gutterBottom
+                >
+                  Post a Job
+                </Typography>
                 <Grid container spacing={16}>
                   <Grid item xs={6}>
                     <TextField
@@ -144,7 +144,7 @@ class CreateJobForm extends React.Component<Props, State> {
                     <TextField
                       className={classes.phone}
                       id="phone"
-                      label="phone"
+                      label="Phone"
                       value={this.state.phone}
                       onChange={this.handleChange("phone")}
                       margin="normal"
@@ -153,19 +153,19 @@ class CreateJobForm extends React.Component<Props, State> {
                     />
                   </Grid>
                 </Grid>
-              </form>
-            </CardContent>
-            <CardActions>
-              <ButtonWithLoading
-                color="secondary"
-                variant="contained"
-                loading={this.state.submitButtonClicked}
-                type="submit"
-                value="Submit"
-              >
-                Post Job
-              </ButtonWithLoading>
-            </CardActions>
+              </CardContent>
+              <CardActions>
+                <ButtonWithLoading
+                  color="secondary"
+                  variant="contained"
+                  loading={this.state.submitButtonClicked}
+                  type="submit"
+                  value="Submit"
+                >
+                  Post Job
+                </ButtonWithLoading>
+              </CardActions>
+            </form>
           </>
         ) : (
           <>

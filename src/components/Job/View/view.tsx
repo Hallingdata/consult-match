@@ -4,6 +4,9 @@ import {
   Chip,
   withStyles,
   Theme,
+  Card,
+  CardContent,
+  CardActions,
   WithStyles,
   createStyles,
 } from "@material-ui/core"
@@ -22,29 +25,35 @@ const JobView: React.SFC<Props> = ({
   jobHash,
   myDefaultAddress,
   markeJobComplete,
+  classes,
 }) => {
   const { title, description, location, email, phone, owner, done } = job
   return (
-    <>
-      {job.done ? (
-        <Chip
-          label="position filled"
-          color="secondary"
-          icon={<WarningIcon />}
-        />
-      ) : null}
-      <Typography variant="h5">{title}</Typography>
-      <Typography variant="subtitle1">{location}</Typography>
-      <Typography>{description}</Typography>
-      <Typography variant="subtitle1">Contact</Typography>
-      <Typography>Email: {email}</Typography>
-      <Typography>Phone: {phone}</Typography>
+    <Card className={classes.card}>
+      <CardContent>
+        {job.done ? (
+          <Chip
+            className={classes.skill}
+            label="position filled"
+            color="secondary"
+            icon={<WarningIcon />}
+          />
+        ) : null}
+        <Typography variant="h5">{title}</Typography>
+        <Typography variant="subtitle1">{location}</Typography>
+        <Typography>{description}</Typography>
+        <Typography variant="subtitle1">Contact</Typography>
+        <Typography>Email: {email}</Typography>
+        <Typography>Phone: {phone}</Typography>
+      </CardContent>
       {owner === myDefaultAddress && !job.done ? (
-        <Button onClick={() => markeJobComplete(job.jobIndex)}>
-          Marke job as complete
-        </Button>
+        <CardActions>
+          <Button onClick={() => markeJobComplete(job.jobIndex)}>
+            Marke job as complete
+          </Button>
+        </CardActions>
       ) : null}
-    </>
+    </Card>
   )
 }
 
@@ -52,6 +61,14 @@ const styles = ({  }: Theme) =>
   createStyles({
     className: {
       width: 100,
+    },
+    card: {
+      maxWidth: 900,
+      margin: "auto",
+      marginTop: 150,
+    },
+    skill: {
+      margin: 5,
     },
   })
 

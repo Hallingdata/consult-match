@@ -123,15 +123,15 @@ class RegisterConsultant extends React.Component<Props, State> {
         {!this.state.submitButtonClicked ||
         this.props.waitingForRegistration ? (
           <>
-            <CardContent>
-              <Typography
-                variant="h5"
-                className={classes.headline}
-                gutterBottom
-              >
-                Register a new consultant profile.
-              </Typography>
-              <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
+              <CardContent>
+                <Typography
+                  variant="h5"
+                  className={classes.headline}
+                  gutterBottom
+                >
+                  Register a new consultant profile.
+                </Typography>
                 <Grid container spacing={16}>
                   <Grid item xs={6}>
                     <TextField
@@ -211,7 +211,7 @@ class RegisterConsultant extends React.Component<Props, State> {
                     <TextField
                       className={classes.phone}
                       id="phone"
-                      label="phone"
+                      label="Phone"
                       value={this.state.phone}
                       onChange={this.handleChange("phone")}
                       margin="normal"
@@ -230,19 +230,19 @@ class RegisterConsultant extends React.Component<Props, State> {
                   </Grid>
                   <Grid item xs={12} />
                 </Grid>
-              </form>
-            </CardContent>
-            <CardActions>
-              <ButtonWithLoading
-                color="secondary"
-                variant="contained"
-                loading={this.state.submitButtonClicked}
-                type="submit"
-                value="Submit"
-              >
-                Register
-              </ButtonWithLoading>
-            </CardActions>
+              </CardContent>
+              <CardActions>
+                <ButtonWithLoading
+                  color="secondary"
+                  variant="contained"
+                  loading={this.state.submitButtonClicked}
+                  type="submit"
+                  value="Submit"
+                >
+                  Register
+                </ButtonWithLoading>
+              </CardActions>
+            </form>
           </>
         ) : (
           <>

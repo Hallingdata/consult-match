@@ -58,10 +58,14 @@ class JobList extends React.Component<Props, State> {
                 <Card key={jobHash} className={this.props.classes.card}>
                   <CardContent>
                     {owner === this.props.myDefaultAddress ? (
-                      <Chip label="Your Job" />
+                      <Chip
+                        className={this.props.classes.skill}
+                        label="Your Job"
+                      />
                     ) : null}
                     {done ? (
                       <Chip
+                        className={this.props.classes.skill}
                         label="position filled"
                         color="secondary"
                         icon={<WarningIcon />}
@@ -71,7 +75,10 @@ class JobList extends React.Component<Props, State> {
                     <Typography variant="h5" component="h2">
                       {title}
                     </Typography>
-                    <Typography component="p">{description}</Typography>
+                    <Typography component="p">
+                      {R.slice(0, 95, description)}
+                      {description.length > 95 ? "..." : null}
+                    </Typography>
                   </CardContent>
                 </Card>
               </ListItem>
@@ -96,6 +103,9 @@ const styles = ({  }: Theme) =>
       paddingBottom: 3,
       maxWidth: 900,
       margin: "auto",
+    },
+    skill: {
+      margin: 5,
     },
   })
 
