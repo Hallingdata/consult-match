@@ -1,5 +1,6 @@
 import * as console from "console"
-const gateway = "http://home.asgeir.me:3033/bzz:/"
+// const gateway = "http://home.asgeir.me:3033/bzz:/"
+const gateway = "https://swarm-gateways.net/bzz:/"
 
 export const publish = (content: any) =>
   fetch(gateway, {

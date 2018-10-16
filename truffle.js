@@ -1,4 +1,6 @@
 var path = require("path")
+var HDWalletProvider = require("truffle-hdwallet-provider")
+var secret = require("./secret.json")
 
 module.exports = {
   // See <http://truffeframework.com/docs/advanced/configuration>
@@ -10,13 +12,27 @@ module.exports = {
       host: "home.asgeir.me",
       port: 3034,
       network_id: "*", // Match any network id
-      gas: 500000
+      gas: 500000,
     },
     local: {
       host: "localhost",
       port: 8545,
       network_id: "*", // Match any network id
-      gas: 500000
+      gas: 500000,
+    },
+    ropsten: {
+      host: "127.0.0.1",
+      port: 8545,
+      network_id: 3,
+      gas: 4700000,
+    },
+    "ropsten-infura": {
+      provider: () =>
+        new HDWalletProvider(
+          secret.apiSecret,
+          "https://ropsten.infura.io/v3/" + secret.apiKey
+        ),
+      network_id: 3,
     },
   },
 }
