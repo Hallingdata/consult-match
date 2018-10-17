@@ -38,3 +38,4 @@ $ npm run eth-deploy:ropsten-infura
 $ npm app-build
 ```
 
+*Created by Hallingdata AS*
