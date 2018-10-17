@@ -1,28 +1,39 @@
-# dApp starter / Truffle Box
+The consult-match platform is developed as an example of how blockchain technology can be used in practice.
 
-## Setup as Truffle Box
-```
-$ truffle unbox hallingdata/dApp-starter
-```
+The platform consists of:
+1. The ability for employers to post jobs.
+2. The ability for consultants to publish their profile.
 
-## Setup
-```
-$ npm install  
-```
+Then people can browse jobs and possible get in contact with employers. And employers can browse consultant profiles and get in contact if they find a good match.
 
-## Run develop blockchain and deploy contracts
+## Technology
+Truffle is used for contract deployment etc.
+
+Jobs and consultant data is saved in Swarm with a link on the Ethereum blockchain.
+The Ethereum blockchain is also used for storing job status, for letting the job owner change the status of a job and for consultants to delete their profile.
+
+For the frontend React, Redux, Material-UI, and Typescript are used. 
+
+## How to run
+### Run develop blockchain and deploy contracts
 ```
 $ npm run eth-dev
 ```
 Then in the console deploy the contracts with the `deploy` keyword.
 
-## Run web app
+### Run the web-app
+This must be done after the contracts are deployed.
 ```
 $ npm app-start
 ```
 
-### Included
-- Truffle
-- Typescript
-- React
-- Redux
+## Deployment to Ropsten via Infura
+```
+$ npm run eth-deploy:ropsten-infura
+```
+
+## Build the web-app
+```
+$ npm app-build
+```
+
