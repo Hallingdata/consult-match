@@ -12,11 +12,11 @@ import { connectRouter, routerMiddleware } from "connected-react-router"
 import { Provider } from "react-redux"
 
 import { configureStore } from "./store"
-import { createBrowserHistory } from "history"
+import createHashHistory from "history/createHashHistory"
 
 import theme from "./theme"
 
-const history = createBrowserHistory()
+const history = createHashHistory()
 const store = configureStore(history)
 
 /*
