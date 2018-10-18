@@ -3,16 +3,19 @@ import { fetchAllConsultants } from "../../state/actions/consultants"
 import * as Whisper from "../../state/actions/whisper"
 import { connect } from "react-redux"
 import Startup from "./startup"
-import { fetchDefualtEthAddress } from "../../state/actions/web3"
+import { fetchDefualtEthAddress, checkNetwork } from "../../state/actions/web3"
 
 function mapStateToProps(state: any) {
   return {
     ready: state.job.initialLoaded && state.consultant.initialLoaded,
+    correctNetwork: state.web3.correctNetwork,
+    currentNetwork: state.web3.currentNetwork,
   }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
+    checkNetwork: () => dispatch(checkNetwork()),
     fetchJobs: async () => {
       await dispatch(fetchAllJobs()),
         await dispatch(fetchAllConsultants()),
