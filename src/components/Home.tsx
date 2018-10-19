@@ -37,7 +37,13 @@ const Home: React.SFC<Props> = ({ classes }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button variant="outlined">Check out the code on GitHub</Button>
+          <Button
+            variant="outlined"
+            href="https://github.com/Hallingdata/consult-match"
+            target="_blank"
+          >
+            Check out the code on GitHub
+          </Button>
         </CardActions>
       </Card>
     </>
