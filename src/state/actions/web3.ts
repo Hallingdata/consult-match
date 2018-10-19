@@ -1,16 +1,24 @@
+import * as R from "ramda"
 import Web3 from "../../integrations/web3"
+import * as jobsJsonInterface from "../../contracts/interfaces/Jobs.json"
 
 export const SET_DEFAULT_ETH_ADDRESS = "SET_DEFAULT_ETH_ADDRESS"
 export const SET_NETWORK_STATUS = "SET_NETWORK_STATUS"
+
+const deployedNetworks: number[] = R.map(
+  key => parseInt(key),
+  R.keys(jobsJsonInterface.networks)
+)
 
 const setDefaultEthAccount = (account: string) => ({
   type: SET_DEFAULT_ETH_ADDRESS,
   account,
 })
 
-const setNetwork = (network: string) => ({
+const setNetwork = (deployedNetworks: number[], currentNetwork: number) => ({
   type: SET_NETWORK_STATUS,
-  network,
+  deployedNetworks,
+  currentNetwork,
 })
 
 export const fetchDefualtEthAddress = () => async (dispatch: any) => {
@@ -21,11 +29,10 @@ export const fetchDefualtEthAddress = () => async (dispatch: any) => {
 export const checkNetwork = () => async (dispatch: any) => {
   try {
     await Web3.eth.net.isListening()
-    const currentNetwork = await (Web3 as any).eth.net.getNetworkType()
-    return dispatch(setNetwork(currentNetwork))
+    const currentId = await (Web3 as any).eth.net.getId()
+    return dispatch(setNetwork(deployedNetworks, currentId))
   } catch (e) {
-    console.log("Wow. Something went wrong")
-    return dispatch(setNetwork("not connected"))
+    return dispatch(setNetwork(deployedNetworks, -1))
   }
 }
 

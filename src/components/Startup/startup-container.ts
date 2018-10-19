@@ -9,6 +9,7 @@ function mapStateToProps(state: any) {
   return {
     ready: state.job.initialLoaded && state.consultant.initialLoaded,
     correctNetwork: state.web3.correctNetwork,
+    deployedNetworks: state.web3.deployedNetworks,
     currentNetwork: state.web3.currentNetwork,
   }
 }
