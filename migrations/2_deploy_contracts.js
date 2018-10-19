@@ -1,4 +1,3 @@
-const SimpleStorage = artifacts.require("./SimpleStorage")
 const Jobs = artifacts.require("./Jobs")
 const Consultants = artifacts.require("./Consultants")
 
@@ -9,9 +8,6 @@ module.exports = function(deployer, network, accounts) {
   const wallet = accounts[1]
 
   return deployer
-    .then(() => {
-      return deployer.deploy(SimpleStorage)
-    })
     .then(() => {
       return deployer.deploy(Jobs)
     })
