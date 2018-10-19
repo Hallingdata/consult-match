@@ -29,7 +29,7 @@
   },
   "scripts": {
     "app-start": "react-scripts-ts start",
-    "app-build": "react-scripts-ts build",
+    "app-build": "react-scripts-ts build && echo 'consult-match.hallingdata.no' > build/CNAME",
     "app-deploy": "gh-pages -d build",
     "app-serve-build": "./node_modules/.bin/serve -s build",
     "app-test": "react-scripts-ts test --env=jsdom",
