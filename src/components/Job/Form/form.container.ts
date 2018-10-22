@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 const mapStateToProps = (state: any) => {
   return {
     waitingForJobPosting: state.job.waitingForJobPosting,
+    walletIsUnlocked: state.web3.defaultEthAddress != null,
   }
 }
 

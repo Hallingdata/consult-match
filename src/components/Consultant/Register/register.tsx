@@ -4,6 +4,8 @@ import Lottie from "react-lottie"
 import * as animationData from "../../../animations/checked_done_.json"
 import { Chip, StyleRulesCallback, withStyles, Grid } from "@material-ui/core"
 import {
+  DialogTitle,
+  Dialog,
   TextField,
   Card,
   CardActions,
@@ -21,6 +23,7 @@ import FileUploadSwarm from "../../UI/FileUploadSwarm"
 interface Props extends WithStyles<typeof styles> {
   registerConsultant: (consultant: Consultant) => void
   waitingForRegistration: boolean
+  walletIsUnlocked: boolean
 }
 
 type State = {
@@ -117,144 +120,156 @@ class RegisterConsultant extends React.Component<Props, State> {
         preserveAspectRatio: "xMidYMid slice",
       },
     }
-    const { classes } = this.props
-    return (
-      <Card className={classes.card}>
-        {!this.state.submitButtonClicked ||
-        this.props.waitingForRegistration ? (
-          <>
-            <form onSubmit={this.handleSubmit}>
-              <CardContent>
-                <Typography
-                  variant="h5"
-                  className={classes.headline}
-                  gutterBottom
-                >
-                  Register a new consultant profile.
-                </Typography>
-                <Grid container spacing={16}>
-                  <Grid item xs={6}>
-                    <TextField
-                      className={classes.title}
-                      id="name"
-                      label="Name"
-                      value={this.state.name}
-                      onChange={this.handleChange("name")}
-                      margin="normal"
-                      fullWidth
-                      required
-                    />
+    const { classes, walletIsUnlocked } = this.props
+    console.log("wallet is unclocked: " + walletIsUnlocked)
+    if (!walletIsUnlocked) {
+      return (
+        <Dialog open={true}>
+          <DialogTitle>
+            You need to unlock your wallet and refresh the browser in order to
+            register
+          </DialogTitle>
+        </Dialog>
+      )
+    } else {
+      return (
+        <Card className={classes.card}>
+          {!this.state.submitButtonClicked ||
+          this.props.waitingForRegistration ? (
+            <>
+              <form onSubmit={this.handleSubmit}>
+                <CardContent>
+                  <Typography
+                    variant="h5"
+                    className={classes.headline}
+                    gutterBottom
+                  >
+                    Register a new consultant profile.
+                  </Typography>
+                  <Grid container spacing={16}>
+                    <Grid item xs={6}>
+                      <TextField
+                        className={classes.title}
+                        id="name"
+                        label="Name"
+                        value={this.state.name}
+                        onChange={this.handleChange("name")}
+                        margin="normal"
+                        fullWidth
+                        required
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        className={classes.company}
+                        id="company"
+                        label="Company"
+                        value={this.state.company}
+                        onChange={this.handleChange("company")}
+                        margin="normal"
+                        fullWidth
+                        required
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        className={classes.description}
+                        id="description"
+                        label="Description"
+                        multiline
+                        value={this.state.description}
+                        onChange={this.handleChange("description")}
+                        margin="normal"
+                        rows={5}
+                        fullWidth
+                        required
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      {R.map(
+                        skill => (
+                          <Chip
+                            key={`skill-${skill}`}
+                            label={skill}
+                            onDelete={this.skillHandleDelete(skill)}
+                          />
+                        ),
+                        this.state.skills
+                      )}
+                      <TextField
+                        className={classes.skill}
+                        id="skill"
+                        label="Skill"
+                        value={this.state.newSkill}
+                        onChange={this.handleChange("newSkill")}
+                        onKeyPress={this.skillHandleNew}
+                        margin="normal"
+                        helperText="Press ENTER to add a skill"
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        className={classes.email}
+                        id="email"
+                        label="Email"
+                        value={this.state.email}
+                        onChange={this.handleChange("email")}
+                        margin="normal"
+                        fullWidth
+                        required
+                        type="email"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        className={classes.phone}
+                        id="phone"
+                        label="Phone"
+                        value={this.state.phone}
+                        onChange={this.handleChange("phone")}
+                        margin="normal"
+                        fullWidth
+                        type="tel"
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Typography variant="h5">Upload picture</Typography>
+                      <FileUploadSwarm
+                        onUploadComplete={this.handleImageUploaded}
+                        onUploadFailed={(res: any) =>
+                          console.log("error: " + res)
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12} />
                   </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      className={classes.company}
-                      id="company"
-                      label="Company"
-                      value={this.state.company}
-                      onChange={this.handleChange("company")}
-                      margin="normal"
-                      fullWidth
-                      required
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      className={classes.description}
-                      id="description"
-                      label="Description"
-                      multiline
-                      value={this.state.description}
-                      onChange={this.handleChange("description")}
-                      margin="normal"
-                      rows={5}
-                      fullWidth
-                      required
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    {R.map(
-                      skill => (
-                        <Chip
-                          key={`skill-${skill}`}
-                          label={skill}
-                          onDelete={this.skillHandleDelete(skill)}
-                        />
-                      ),
-                      this.state.skills
-                    )}
-                    <TextField
-                      className={classes.skill}
-                      id="skill"
-                      label="Skill"
-                      value={this.state.newSkill}
-                      onChange={this.handleChange("newSkill")}
-                      onKeyPress={this.skillHandleNew}
-                      margin="normal"
-                      helperText="Press ENTER to add a skill"
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      className={classes.email}
-                      id="email"
-                      label="Email"
-                      value={this.state.email}
-                      onChange={this.handleChange("email")}
-                      margin="normal"
-                      fullWidth
-                      required
-                      type="email"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      className={classes.phone}
-                      id="phone"
-                      label="Phone"
-                      value={this.state.phone}
-                      onChange={this.handleChange("phone")}
-                      margin="normal"
-                      fullWidth
-                      type="tel"
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography variant="h5">Upload picture</Typography>
-                    <FileUploadSwarm
-                      onUploadComplete={this.handleImageUploaded}
-                      onUploadFailed={(res: any) =>
-                        console.log("error: " + res)
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={12} />
-                </Grid>
-              </CardContent>
-              <CardActions>
-                <ButtonWithLoading
-                  color="secondary"
-                  variant="contained"
-                  loading={this.state.submitButtonClicked}
-                  type="submit"
-                  value="Submit"
-                >
-                  Register
-                </ButtonWithLoading>
-              </CardActions>
-            </form>
-          </>
-        ) : (
-          <>
-            <Lottie options={defaultLottieOptions} height={400} width={400} />
-            <Typography align="center">
-              It might take up to 5 minutes before the data is available through
-              Swarm
-            </Typography>
-          </>
-        )}
-      </Card>
-    )
+                </CardContent>
+                <CardActions>
+                  <ButtonWithLoading
+                    color="secondary"
+                    variant="contained"
+                    loading={this.state.submitButtonClicked}
+                    type="submit"
+                    value="Submit"
+                  >
+                    Register
+                  </ButtonWithLoading>
+                </CardActions>
+              </form>
+            </>
+          ) : (
+            <>
+              <Lottie options={defaultLottieOptions} height={400} width={400} />
+              <Typography align="center">
+                It might take up to 5 minutes before the data is available
+                through Swarm
+              </Typography>
+            </>
+          )}
+        </Card>
+      )
+    }
   }
 }
 
