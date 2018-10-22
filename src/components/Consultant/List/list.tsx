@@ -92,7 +92,7 @@ class ConsultantList extends React.Component<Props, State> {
                     />
                     <CardContent>
                       {owner === this.props.myDefaultAddress ? (
-                        <Chip label="Your Job" />
+                        <Chip label="Your profile" />
                       ) : null}
                       <Typography color="textSecondary">{company}</Typography>
                       <Typography variant="h5" component="h2">
