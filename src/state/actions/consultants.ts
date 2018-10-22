@@ -50,11 +50,11 @@ export const registerConsultant = (consultant: Consultant) => async (
   try {
     const hash = await Swarm.publish(consultant)
     await ConsultantsContract.addConsultant(hash)
-    dispatch({ type: CONSULTANT_REGISTRATION_COMPLETE })
   } catch (error) {
     console.log(`Error: ${error}`)
-    dispatch(newNotificationError(error))
+    dispatch(newNotificationError(error.toString()))
   }
+  dispatch({ type: CONSULTANT_REGISTRATION_COMPLETE })
 }
 
 export const removeConsultant = (consultantIndex: number) => async (

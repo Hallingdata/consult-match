@@ -1,5 +1,6 @@
 import { Action, ActionCreator, Dispatch } from "redux"
 
+import { newNotificationError } from "./notifications"
 import * as Swarm from "../../integrations/swarm"
 import * as Whisper from "../../integrations/whisper"
 import * as R from "ramda"
@@ -43,12 +44,17 @@ export const postJob = (job: Job) => async (dispatch: any, getState: any) => {
   // console.log("KeyId: " + whisperKeyId)
   // const whisperEmployerPublicKey = await Whisper.getPublicKey(whisperKeyId)
   // console.log("whisperEmployerPublicKey: " + whisperEmployerPublicKey)
-  const hash = await Swarm.publish(
-    job
-    // R.assoc("whisperEmployerPublicKey", whisperEmployerPublicKey, job)
-  )
-  await JobsContract.postJob(hash)
-  dispatch(fetchAllJobs())
+  try {
+    const hash = await Swarm.publish(
+      job
+      // R.assoc("whisperEmployerPublicKey", whisperEmployerPublicKey, job)
+    )
+    await JobsContract.postJob(hash)
+    dispatch(fetchAllJobs())
+  } catch (error) {
+    console.log(`Error: ${error}`)
+    dispatch(newNotificationError(error.toString()))
+  }
   dispatch({ type: JOB_POSTING_COMPLETE })
 }
 
