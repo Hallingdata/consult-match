@@ -1,15 +1,16 @@
 pragma solidity ^0.4.19;
 
 contract Consultants {
-  string[] consultants;
   uint public numberOfConsultants;
+
+  mapping (uint => string) public consultants;
   mapping (uint => address) public consultantToOwner;
   mapping (address => uint[]) public ownerToConsultants;
 
   function addConsultant(string _hash) public {
-    uint id = consultants.push(_hash) - 1;
-    ownerToConsultants[msg.sender].push(id);
-    consultantToOwner[id] = msg.sender;
+    consultants[numberOfConsultants] = _hash;
+    ownerToConsultants[msg.sender].push(numberOfConsultants);
+    consultantToOwner[numberOfConsultants] = msg.sender;
     numberOfConsultants = numberOfConsultants + 1;
   }
 
