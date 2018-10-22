@@ -25,7 +25,7 @@ const Home: React.SFC<Props> = ({ classes }) => {
             The consult-match platform is developed as an example of how
             blockchain technology can be used in practice.
           </Typography>
-          <Typography>
+          <Typography component="div">
             The platform consists of:
             <ol>
               <li>The ability for employers to post jobs.</li>
