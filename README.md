@@ -29,6 +29,13 @@ $ npm app-start
 ```
 
 ## Deployment to Ropsten via Infura
+### Configure
+1. First rename the `secret.json-template` file to `secret.json`. 
+2. Create an account at at infura.io.
+3. Create a project at infura.io.
+4. Copy the API KEY and the API SECRET to the corresponding fields in the secret.json file.
+
+### Deploy
 ```
 $ npm run eth-deploy:ropsten-infura
 ```

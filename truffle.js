@@ -1,6 +1,20 @@
 var path = require("path")
 var HDWalletProvider = require("truffle-hdwallet-provider")
-var secret = require("./secret.json")
+const fs = require("fs")
+
+const pathToSecret = "./secret.json"
+
+var secret = {}
+
+try {
+  if (fs.existsSync(pathToSecret)) {
+    secret = require("./secret.json")
+  }
+} catch (err) {
+  console.log(
+    "In order to deploy to Infura - the secret.json file needs to be configurated (see 'secret.json-template')"
+  )
+}
 
 module.exports = {
   // See <http://truffeframework.com/docs/advanced/configuration>
@@ -23,8 +37,8 @@ module.exports = {
     "ropsten-infura": {
       provider: () =>
         new HDWalletProvider(
-          secret.apiSecret,
-          "https://ropsten.infura.io/v3/" + secret.apiKey
+          secret.infura.apiSecret,
+          "https://ropsten.infura.io/v3/" + secret.infura.apiKey
         ),
       network_id: 3,
     },
