@@ -22,7 +22,7 @@ contract Consultants {
 
   // This removes the conultant hash
   function removeConsultant(uint _index) public {
-    require(consultantToOwner[_index] == msg.sender);
+    require(consultantToOwner[_index] == msg.sender, "the caller is not the owner of the contract");
     consultants[_index] = "";
   }
 }

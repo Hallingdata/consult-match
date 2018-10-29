@@ -33,7 +33,7 @@ contract Jobs {
   }
 
   function markJobComplete(uint _index) public {
-    require(jobToOwner[_index] == msg.sender);
+    require(jobToOwner[_index] == msg.sender, "the caller is not the owner of the contract");
     isJobDone[_index] = true;
   }
 }
