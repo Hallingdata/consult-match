@@ -49,7 +49,7 @@ export const postJob = (job: Job) => async (dispatch: any, getState: any) => {
       job
       // R.assoc("whisperEmployerPublicKey", whisperEmployerPublicKey, job)
     )
-    await JobsContract.postJob(hash)
+    await JobsContract.addJob(hash)
     dispatch(fetchAllJobs())
   } catch (error) {
     console.log(`Error: ${error}`)

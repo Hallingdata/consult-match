@@ -52,7 +52,7 @@ export const getBlockchainDataForAllJobs = async () => {
   >
 }
 
-export const postJob = async (jobHash: string) => {
+export const addJob = async (jobHash: string) => {
   const contract = await getContractInstance()
 
   const responds = await contract.addJob(web3.utils.fromAscii(jobHash))
