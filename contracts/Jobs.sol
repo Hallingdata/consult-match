@@ -32,6 +32,11 @@ contract Jobs {
     return (jobs[_index], isJobDone[_index], jobToOwner[_index]);
   }
 
+  // returns the id of all jobs owned by this address
+  function getJobsOwnedByAddresses(address _address) public view returns (uint[]) {
+    return ownerToJobs[_address];
+  }
+
   function markJobComplete(uint _index) public {
     require(jobToOwner[_index] == msg.sender, "the caller is not the owner of the contract");
     isJobDone[_index] = true;
