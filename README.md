@@ -16,6 +16,11 @@ The Ethereum blockchain is also used for storing job status, for letting the job
 For the frontend React, Redux, Material-UI, and Typescript are used. 
 
 ## How to run
+### Install dependencies
+```
+$ npm install
+```
+
 ### Run develop blockchain and deploy contracts
 ```
 $ npm run eth-dev
@@ -23,10 +28,12 @@ $ npm run eth-dev
 Then in the console deploy the contracts with the `deploy` keyword.
 
 ### Run the web-app
-This must be done after the contracts are deployed.
+After the contracts are deployed open a separate terminal instance and start the web-app:
 ```
-$ npm app-start
+$ npm run app-start
 ```
+
+Then go to http://localhost:3000 in your browser to interact with the dApp. This requires Meta Mask or another dApp browser.
 
 ## Deployment to Ropsten via Infura
 ### Configure

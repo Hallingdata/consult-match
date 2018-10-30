@@ -1,6 +1,6 @@
 import * as R from "ramda"
 import web3 from "../integrations/web3"
-import * as jsonInterface from "./interfaces/Jobs.json"
+import * as jobsABI from "./interfaces/Jobs.json"
 import * as truffleContract from "truffle-contract"
 
 let contract: {
@@ -14,7 +14,7 @@ const getContractInstance = async () => {
   const defaultAccount = (await web3.eth.getAccounts())[0]
 
   if (contract == null) {
-    const contractLoader = truffleContract(jsonInterface)
+    const contractLoader = truffleContract(jobsABI)
     contractLoader.setProvider(web3.eth.currentProvider)
     contractLoader.defaults({
       from: defaultAccount,
