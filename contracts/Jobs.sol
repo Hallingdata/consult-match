@@ -4,7 +4,7 @@ contract Jobs {
   uint public numberOfJobs;
 
   // we use mappings instead of arrays because we keep track of the length
-  // ourselfes in numberOfJobs
+  // ourselves in numberOfJobs
   mapping (uint => string) public jobs;
   mapping (address => uint[]) public ownerToJobs;
   mapping (uint => address) public jobToOwner;
@@ -13,13 +13,13 @@ contract Jobs {
   function addJob(string _hash) public {
     // the current number of jobs is the identifier (index) for this job
 
-    // add the hash to the jobs mapping
+    // save the hash to the jobs mapping
     jobs[numberOfJobs] = _hash;
 
-    // add the id to the senders ownerToJob mapping
+    // add the id to the sender's ownerToJobs mapping (the array of jobs posted by the sender)
     ownerToJobs[msg.sender].push(numberOfJobs);
 
-    // save the jobs sender
+    // save the job's sender
     jobToOwner[numberOfJobs] = msg.sender;
 
     // increase the number of jobs
