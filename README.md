@@ -25,7 +25,7 @@ $ npm install
 ```
 $ npm run eth-dev
 ```
-Then in the console deploy the contracts with the `deploy` keyword.
+Then in the console opened by the command above, deploy the contracts with the `deploy` keyword.
 
 ### Run the web-app
 After the contracts are deployed open a separate terminal instance and start the web-app:
