@@ -7,7 +7,7 @@ contract Consultants {
   mapping (uint => address) public consultantToOwner;
   mapping (address => uint[]) public ownerToConsultants;
 
-  function addConsultant(string _hash) public {
+  function addConsultant(string memory _hash) public {
     consultants[numberOfConsultants] = _hash;
     ownerToConsultants[msg.sender].push(numberOfConsultants);
     consultantToOwner[numberOfConsultants] = msg.sender;
@@ -15,7 +15,7 @@ contract Consultants {
   }
 
   // Returns the consultant hash and the address of the owner
-  function getConsultant(uint _index) public view returns (string, address) {
+  function getConsultant(uint _index) public view returns (string memory, address) {
     return (consultants[_index], consultantToOwner[_index]);
   }
 
