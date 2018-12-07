@@ -10,7 +10,7 @@ contract Jobs {
   mapping (uint => address) public jobToOwner;
   mapping (uint => bool) public isJobDone;
 
-  function addJob(string _hash) public {
+  function addJob(string memory _hash) public {
     // the current number of jobs is the identifier (index) for this job
 
     // save the hash to the jobs mapping
@@ -28,12 +28,12 @@ contract Jobs {
 
   // returns the job hash, a bool indicating if the job is active or not and
   // the address that owns/published the job
-  function getJob(uint _index) public view returns (string, bool, address) {
+  function getJob(uint _index) public view returns (string memory, bool, address) {
     return (jobs[_index], isJobDone[_index], jobToOwner[_index]);
   }
 
   // returns the id of all jobs owned by this address
-  function getJobsOwnedByAddresses(address _address) public view returns (uint[]) {
+  function getJobsOwnedByAddresses(address _address) public view returns (uint[] memory) {
     return ownerToJobs[_address];
   }
 
