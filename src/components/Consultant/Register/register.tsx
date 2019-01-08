@@ -18,7 +18,7 @@ import {
   WithStyles,
 } from "@material-ui/core"
 import ButtonWithLoading from "../../UI/ButtonWithLoading"
-import FileUploadSwarm from "../../UI/FileUploadSwarm"
+import FileUpload from "../../UI/FileUpload"
 
 interface Props extends WithStyles<typeof styles> {
   registerConsultant: (consultant: Consultant) => void
@@ -235,7 +235,7 @@ class RegisterConsultant extends React.Component<Props, State> {
                     </Grid>
                     <Grid item xs={4}>
                       <Typography variant="h5">Upload picture</Typography>
-                      <FileUploadSwarm
+                      <FileUpload
                         onUploadComplete={this.handleImageUploaded}
                         onUploadFailed={(res: any) =>
                           console.log("error: " + res)
@@ -263,7 +263,6 @@ class RegisterConsultant extends React.Component<Props, State> {
               <Lottie options={defaultLottieOptions} height={400} width={400} />
               <Typography align="center">
                 It might take up to 5 minutes before the data is available
-                through Swarm
               </Typography>
             </>
           )}

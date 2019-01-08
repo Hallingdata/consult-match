@@ -186,7 +186,6 @@ class CreateJobForm extends React.Component<Props, State> {
               <Lottie options={defaultLottieOptions} height={400} width={400} />
               <Typography align="center">
                 It might take up to 5 minutes before the data is available
-                through Swarm
               </Typography>
             </>
           )}

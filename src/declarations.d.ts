@@ -1,3 +1,5 @@
 declare module "*.json"
 declare module "truffle-contract"
 declare module "react-lottie"
+declare module "ipfs-http-client"
+declare module "pull-file-reader"

@@ -13,7 +13,7 @@ Then people can browse jobs and possible get in contact with employers. And empl
 ## Technology
 Truffle is used for contract deployment etc.
 
-Jobs and consultant data is saved in Swarm with a link on the Ethereum blockchain.
+Jobs and consultant data is saved in IPFS with a link on the Ethereum blockchain.
 The Ethereum blockchain is also used for storing job status, for letting the job owner change the status of a job and for consultants to delete their profile.
 
 For the frontend React, Redux, Material-UI, and Typescript are used. 

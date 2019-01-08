@@ -1,13 +1,13 @@
 import * as React from "react"
 import { withStyles, Theme, WithStyles, createStyles } from "@material-ui/core"
-import { publishFile } from "../../integrations/swarm"
+import { publishFile } from "../../integrations/ipfs"
 
 interface Props extends WithStyles<typeof styles> {
   onUploadComplete: (hash: string) => void
   onUploadFailed: (error: Error) => void
 }
 
-const FileUploadSwarm: React.SFC<Props> = ({
+const FileUpload: React.SFC<Props> = ({
   onUploadComplete,
   onUploadFailed,
 }) => {
@@ -33,4 +33,4 @@ const styles = ({  }: Theme) =>
     },
   })
 
-export default withStyles(styles)(FileUploadSwarm)
+export default withStyles(styles)(FileUpload)

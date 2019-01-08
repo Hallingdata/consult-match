@@ -2,7 +2,7 @@ import ConsultantList from "./list"
 import { fetchAllConsultants } from "../../../state/actions/consultants"
 import { connect } from "react-redux"
 import { push } from "connected-react-router"
-import { getLink } from "../../../integrations/swarm"
+import { getLink } from "../../../integrations/ipfs"
 
 const mapStateToProps = (state: any) => {
   return {

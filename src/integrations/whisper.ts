@@ -56,5 +56,5 @@ export const sendMessage = (
   })
 }
 
-export const getWhisperTopicForJob = (jobSwarmHash: string) => "0x07678231"
-// web3.utils.asciiToHex(jobSwarmHash)
+export const getWhisperTopicForJob = (jobIpfsHash: string) => "0x07678231"
+// web3.utils.asciiToHex(jobIpfsHash)

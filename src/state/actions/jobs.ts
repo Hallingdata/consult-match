@@ -1,7 +1,7 @@
 import { Action, ActionCreator, Dispatch } from "redux"
 
 import { newNotificationError } from "./notifications"
-import * as Swarm from "../../integrations/swarm"
+import * as IPFS from "../../integrations/ipfs"
 import * as Whisper from "../../integrations/whisper"
 import * as R from "ramda"
 import * as JobsContract from "../../contracts/Jobs"
@@ -19,11 +19,11 @@ export const setJobs = (jobs: any) => ({
 
 export const fetchAllJobs = () => async (dispatch: any) => {
   const jobBlockchainData = await JobsContract.getBlockchainDataForAllJobs()
-  const jobSwarmContent = await Promise.all(
-    R.map(({ hash }) => Swarm.getContent(hash), jobBlockchainData)
+  const jobIpfsContent = await Promise.all(
+    R.map(({ hash }) => IPFS.getContent(hash), jobBlockchainData)
   )
 
-  const jobs: any = R.zipWith(R.merge, jobBlockchainData, jobSwarmContent)
+  const jobs: any = R.zipWith(R.merge, jobBlockchainData, jobIpfsContent)
 
   const jobsMap = R.reduce(
     (acc, index: number) =>
@@ -39,16 +39,9 @@ export const fetchAllJobs = () => async (dispatch: any) => {
 
 export const postJob = (job: Job) => async (dispatch: any, getState: any) => {
   dispatch({ type: JOB_POSTING_STARTED })
-  // const whisperKeyId = await Whisper.generateKeyParFromEthAccountSignature()
-  // dispatch(setWhisperKeyId(whisperKeyId))
-  // console.log("KeyId: " + whisperKeyId)
-  // const whisperEmployerPublicKey = await Whisper.getPublicKey(whisperKeyId)
-  // console.log("whisperEmployerPublicKey: " + whisperEmployerPublicKey)
   try {
-    const hash = await Swarm.publish(
-      job
-      // R.assoc("whisperEmployerPublicKey", whisperEmployerPublicKey, job)
-    )
+    const hash = await IPFS.publish(job)
+    console.log("hash: " + hash)
     await JobsContract.addJob(hash)
     dispatch(fetchAllJobs())
   } catch (error) {

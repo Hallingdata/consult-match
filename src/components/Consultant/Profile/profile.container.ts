@@ -1,7 +1,7 @@
 import ConsultantProfile from "./profile"
 import { fetchAllConsultants } from "../../../state/actions/consultants"
 import { connect } from "react-redux"
-import { getLink } from "../../../integrations/swarm"
+import { getLink } from "../../../integrations/ipfs"
 import { removeConsultant } from "../../../state/actions/consultants"
 
 const mapStateToProps = (state: any, { match }: any) => {

@@ -1,4 +1,4 @@
-import * as Swarm from "../../integrations/swarm"
+import * as IPFS from "../../integrations/ipfs"
 import * as R from "ramda"
 import * as ConsultantsContract from "../../contracts/Consultants"
 import { newNotificationError } from "./notifications"
@@ -17,10 +17,10 @@ export const setConsultants = (consultants: any) => ({
 
 export const fetchAllConsultants = () => async (dispatch: any) => {
   const consultantsBlockchainData = await ConsultantsContract.getBlockchainDataForAllConsultants()
-  const consultantsSwarmContent: any = await Promise.all(
+  const consultantsIpfsContent: any = await Promise.all(
     R.map(
       ({ hash }) =>
-        R.isEmpty(hash) ? Promise.resolve({}) : Swarm.getContent(hash),
+        R.isEmpty(hash) ? Promise.resolve({}) : IPFS.getContent(hash),
       consultantsBlockchainData
     )
   )
@@ -28,7 +28,7 @@ export const fetchAllConsultants = () => async (dispatch: any) => {
   const consultants: any = R.zipWith(
     R.merge,
     consultantsBlockchainData,
-    consultantsSwarmContent
+    consultantsIpfsContent
   )
 
   const consultantMap = R.reduce(
@@ -48,7 +48,7 @@ export const registerConsultant = (consultant: Consultant) => async (
 ) => {
   dispatch({ type: CONSULTANT_REGISTRATION_START })
   try {
-    const hash = await Swarm.publish(consultant)
+    const hash = await IPFS.publish(consultant)
     await ConsultantsContract.addConsultant(hash)
   } catch (error) {
     console.log(`Error: ${error}`)
