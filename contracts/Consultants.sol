@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.25;
 
 contract Consultants {
   uint public numberOfConsultants;
@@ -18,7 +18,6 @@ contract Consultants {
   function getConsultant(uint _index) public view returns (string, address) {
     return (consultants[_index], consultantToOwner[_index]);
   }
-
 
   // This removes the conultant hash
   function removeConsultant(uint _index) public {
